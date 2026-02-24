@@ -1,0 +1,52 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Confirmation d'inscription";
+}
+
+<div class="auth-wrapper d-flex align-items-center justify-content-center">
+
+    <div class="auth-card text-center">
+
+        <div class="mb-4">
+            <img src="~/images/logo.png" class="auth-logo mb-3" />
+            <h2 class="fw-bold text-white">Confirmation d'inscription</h2>
+        </div>
+
+        @if (Model.DisplayConfirmAccountLink)
+        {
+            <div class="mb-4 text-muted">
+
+                <p>
+                    Aucun service email configuré.
+                </p>
+
+                <p>
+                    Cliquez ci-dessous pour confirmer votre compte :
+                </p>
+
+                <a id="confirm-link"
+                   href="@Model.EmailConfirmationUrl"
+                   class="btn btn-gold w-100 py-2 mt-3">
+                    Confirmer mon compte
+                </a>
+
+            </div>
+        }
+        else
+        {
+            <p class="text-muted mb-4">
+                Un email de confirmation a été envoyé.
+                Veuillez vérifier votre boîte mail.
+            </p>
+
+            <a asp-area="Identity"
+               asp-page="/Account/Login"
+               class="btn btn-gold w-100 py-2">
+                Aller à la connexion
+            </a>
+        }
+
+    </div>
+
+</div>

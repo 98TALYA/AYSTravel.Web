@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav align-items-center">
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <!-- ADMIN MENU -->
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item mx-2">
+                <a class="btn btn-gold px-3"
+                   asp-controller="Admin"
+                   asp-action="Index">
+                    ⚙ Administration
+                </a>
+            </li>
+        }
+
+        <!-- PROFIL -->
+        <li class="nav-item mx-2">
+            <a class="btn btn-outline-light px-3"
+               asp-area="Identity"
+               asp-page="/Account/Manage/Index"
+               title="Profil">
+                👤 @User.Identity?.Name
+            </a>
+        </li>
+
+        <!-- LOGOUT -->
+        <li class="nav-item mx-2">
+            <form asp-area="Identity"
+                  asp-page="/Account/Logout"
+                  asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"
+                  method="post">
+
+                <button type="submit"
+                        class="btn btn-outline-warning px-3">
+                    🚪 Déconnexion
+                </button>
+            </form>
+        </li>
+       
+            <a class="dropdown-item text-danger fw-semibold" asp-controller="Admin" asp-action="Index">
+                👑 Administration
+            </a>
+        
+    }
+    else
+    {
+        <!-- REGISTER -->
+        <li class="nav-item mx-2">
+            <a class="btn btn-outline-light px-3"
+               asp-area="Identity"
+               asp-page="/Account/Register">
+                📝 Inscription
+            </a>
+        </li>
+
+        <!-- LOGIN -->
+        <li class="nav-item mx-2">
+            <a class="btn btn-gold px-3"
+               asp-area="Identity"
+               asp-page="/Account/Login">
+                🔐 Connexion
+            </a>
+        </li>
+    }
+
+</ul>

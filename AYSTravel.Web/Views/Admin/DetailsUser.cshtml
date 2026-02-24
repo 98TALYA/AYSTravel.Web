@@ -1,0 +1,50 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityUser
+
+@{
+    ViewData["Title"] = "Détails de l'utilisateur";
+}
+
+<div class="container-fluid py-4">
+    <h1 class="mb-4 text-warning fw-bold">👤 Détails de l'utilisateur</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card auth-card p-4">
+                <div class="card-body">
+                    <!-- Nom d'utilisateur -->
+                    <div class="mb-3">
+                        <label class="fw-semibold text-white">Nom d'utilisateur :</label>
+                        <p class="form-control auth-input" style="background: #1f2937;">@Model.UserName</p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label class="fw-semibold text-white">Email :</label>
+                        <p class="form-control auth-input" style="background: #1f2937;">@Model.Email</p>
+                    </div>
+
+                    <!-- Email confirmé -->
+                    <div class="mb-3">
+                        <label class="fw-semibold text-white">Email confirmé :</label>
+                        <p class="form-control auth-input" style="background: #1f2937;">
+                            @(Model.EmailConfirmed ? "✔️ Oui" : "❌ Non")
+                        </p>
+                    </div>
+
+                    <!-- Date de création / Id utilisateur -->
+                    <div class="mb-3">
+                        <label class="fw-semibold text-white">ID utilisateur :</label>
+                        <p class="form-control auth-input" style="background: #1f2937;">@Model.Id</p>
+                    </div>
+
+                    <!-- Bouton retour -->
+                    <div class="mt-4">
+                        <a asp-controller="Admin" asp-action="Users" class="btn btn-gold fw-bold">
+                            🔙 Retour aux utilisateurs
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

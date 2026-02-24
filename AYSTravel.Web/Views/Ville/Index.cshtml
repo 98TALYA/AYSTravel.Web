@@ -1,0 +1,59 @@
+﻿@model AYSTravel.Web.ViewModels.AccueilVilleViewModel
+
+@{
+    ViewData["Title"] = "Villes Officielles - Coupe du Monde 2030";
+}
+
+<section class="official-hero">
+    <div class="container text-center">
+        <h1>Coupe du Monde 2030</h1>
+        <p>Les villes hôtes du Royaume du Maroc</p>
+    </div>
+</section>
+
+<section class="container py-5">
+
+    <div class="row g-5">
+        @foreach (var ville in Model.Villes)
+        {
+            <div class="col-lg-6">
+                <div class="official-card">
+                    <div class="card-image">
+                        <img src="/image/@ville.ImageUrl"
+                         alt="@ville.Nom" />
+                </div>
+
+                    <div class="card-content">
+                        <h3>@ville.Nom</h3>
+                        <p>@ville.Description</p>
+
+                        <div class="card-stats">
+                            <div>
+                                <strong>@ville.NombreMonuments</strong>
+                                <span>Monuments</span>
+                            </div>
+                            <div>
+                                <strong>@ville.NombreActivites</strong>
+                                <span>Activités</span>
+                            </div>
+                            <div>
+                                <strong>@ville.NombreTransports</strong>
+                                <span>Transports</span>
+                            </div>
+                        </div>
+
+                        <a asp-controller="Ville"
+                           asp-action="DetailsVille"
+                           asp-route-id="@ville.Id"
+                           class="btn-official">
+                            Voir les détails
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+                }
+    </div>
+
+</section>

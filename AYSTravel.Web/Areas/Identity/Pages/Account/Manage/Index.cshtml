@@ -1,0 +1,58 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profil";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<div class="auth-wrapper d-flex align-items-center justify-content-center">
+
+    <div class="auth-card">
+
+        <div class="text-center mb-4">
+            <img src="~/image/logo.png" class="auth-logo mb-3" />
+            <h2 class="fw-bold text-white">Mon profil</h2>
+            <p class="text-muted">Gérez vos informations personnelles</p>
+        </div>
+
+        <form id="profile-form" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+            <!-- Username (readonly) -->
+            <div class="form-floating mb-3">
+                <input asp-for="Username"
+                       class="form-control auth-input"
+                       placeholder="Nom d'utilisateur"
+                       disabled />
+                <label asp-for="Username">Nom d'utilisateur</label>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.PhoneNumber"
+                       class="form-control auth-input"
+                       placeholder="Numéro de téléphone" />
+                <label asp-for="Input.PhoneNumber">Numéro de téléphone</label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger small"></span>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit"
+                    class="btn btn-gold w-100 py-2 mb-3">
+                Enregistrer
+            </button>
+
+            <div class="text-center small">
+                <a asp-page="./ChangePassword" class="auth-link">
+                    Modifier le mot de passe
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

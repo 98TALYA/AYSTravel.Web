@@ -1,0 +1,294 @@
+﻿@{
+    ViewData["Title"] = "Accueil";
+}
+
+@section Styles {
+    <style>
+        /* ===== HERO ===== */
+        .hero {
+            height: 90vh;
+            background: linear-gradient( rgba(0,0,0,.55), rgba(0,0,0,.75)), url("/image/2030.png");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: -20px;
+            padding-top: 60px;
+        }
+
+            .hero h1 {
+                font-size: 4rem;
+                font-weight: 900;
+                letter-spacing: 2px;
+            }
+
+            .hero span {
+                color: #facc15;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+                opacity: .9;
+                margin-bottom: 30px;
+            }
+
+        /* ===== SECTION ===== */
+        .section-title {
+            font-weight: 800;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+            .section-title::after {
+                content: "";
+                width: 60px;
+                height: 4px;
+                background: #dc2626;
+                display: block;
+                margin-top: 10px;
+            }
+
+        /* ===== CARD ===== */
+        .custom-card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all .4s ease;
+            box-shadow: 0 15px 35px rgba(0,0,0,.12);
+            height: 100%;
+        }
+
+            .custom-card img {
+                height: 230px;
+                object-fit: cover;
+            }
+
+            .custom-card:hover {
+                transform: translateY(-12px);
+                box-shadow: 0 30px 60px rgba(0,0,0,.25);
+            }
+
+            .custom-card h5 {
+                font-weight: 700;
+            }
+
+        .badge-action {
+            background: #dc2626;
+            font-size: .8rem;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+    </style>
+}
+
+<!-- ================= HERO ================= -->
+<section class="hero text-white">
+    <div class="container">
+        <h1>AYS <span>GUIDE</span></h1>
+        <p>
+            Découvrez le Maroc authentique pendant la Coupe du Monde :
+            villes, stades, traditions, gastronomie et patrimoine.
+        </p>
+        <a class="btn btn-warning btn-lg fw-bold rounded-pill px-4">
+            Commencer l’exploration
+        </a>
+    </div>
+</section>
+
+<section class="container py-5">
+
+    <!-- ================= VILLES ================= -->
+    <h2 class="section-title">Villes hôtes</h2>
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-4">
+            <div class="card custom-card">
+                <img src="/image/5.png" class="card-img-top" alt="Marrakech">
+                <div class="card-body">
+                    <h5>Marrakech</h5>
+                    <p class="text-muted">Culture et ambiance festive</p>
+                    <span class="badge badge-action">Découvrir</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card custom-card">
+                <img src="/image/Mosquée Hassan II.webp" class="card-img-top" alt="Casablanca">
+                <div class="card-body">
+                    <h5>Casablanca</h5>
+                    <p class="text-muted">Capitale économique</p>
+                    <span class="badge badge-action">Découvrir</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card custom-card">
+                <img src="/image/1.jpg" class="card-img-top" alt="Rabat">
+                <div class="card-body">
+                    <h5>Rabat</h5>
+                    <p class="text-muted">Histoire et modernité</p>
+                    <span class="badge badge-action">Découvrir</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <h2 class="section-title">Stades</h2>
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-4">
+            <div class="card custom-card">
+                <img src="/image/stadeM.jpeg" class="card-img-top" alt="Stade Marrakech">
+                <div class="card-body">
+                    <h5>Stade de Marrakech</h5>
+                    <p class="text-muted">Infrastructure internationale</p>
+                    <span class="badge badge-action">Voir matchs</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card custom-card">
+                <img src="/image/stadeC.jpg" class="card-img-top" alt="Stade Casablanca">
+                <div class="card-body">
+                    <h5>Stade de Casablanca</h5>
+                    <p class="text-muted">Infrastructure internationale</p>
+                    <span class="badge badge-action">Voir matchs</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card custom-card">
+                <img src="/image/stadeRa.webp" class="card-img-top" alt="Stade Rabat">
+                <div class="card-body">
+                    <h5>Stade de Rabat</h5>
+                    <p class="text-muted">Infrastructure internationale</p>
+                    <span class="badge badge-action">Voir matchs</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <h2 class="section-title">Gastronomie marocaine</h2>
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-4">
+            <div class="card custom-card">
+                <img src="/image/Restaurants traditionnels.png" class="card-img-top" alt="restaurant traditionnelle">
+                <div class="card-body">
+                    <h5>Restaurant traditionnelle</h5>
+                    <p class="text-muted">Saveurs marocaines authentiques</p>
+                    <span class="badge badge-action">Réserver</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card custom-card">
+                <img src="/image/Restaurant Moderne.jpg" class="card-img-top" alt="Cuisine moderne">
+                <div class="card-body">
+                    <h5>Restaurant moderne</h5>
+                    <p class="text-muted">Saveurs marocaines authentiques</p>
+                    <span class="badge badge-action">Réserver</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card custom-card">
+                <img src="/image/Café Touristique.jpeg" class="card-img-top" alt="Café touristique">
+                <div class="card-body">
+                    <h5>Café & détente</h5>
+                    <p class="text-muted">Saveurs marocaines authentiques</p>
+                    <span class="badge badge-action">Réserver</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <h2 class="section-title">Patrimoine & Traditions</h2>
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-4">
+            <div class="card custom-card">
+                <img src="/image/mks.jpg" class="card-img-top" alt="mks">
+                <div class="card-body">
+                    <h5>Volubilis</h5>
+                    <p class="text-muted">Héritage marocain millénaire </p>
+                    <span class="badge badge-action">Découvrir</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card custom-card">
+                <img src="/image/chellah.webp" class="card-img-top" alt="chellah">
+                <div class="card-body">
+                    <h5>Chellah</h5>
+                    <p class="text-muted">Héritage marocain millénaire</p>
+                    <span class="badge badge-action">Découvrir</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card custom-card">
+                <img src="/image/Aït Ben Haddou.jpg" class="card-img-top" alt="Aït Ben Haddou">
+                <div class="card-body">
+                    <h5>Aït Ben Haddou</h5>
+                    <p class="text-muted">Héritage marocain millénaire</p>
+                    <span class="badge badge-action">Découvrir</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+</section>
+<!-- ================= SEARCH CITY SECTION ================= -->
+<section class="city-search-section py-5 mt-5">
+    <div class="container">
+
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">Explorer une ville</h2>
+            <p class="text-muted">
+                Entrez le nom d’une ville pour découvrir tout ce qu’elle offre
+            </p>
+        </div>
+
+        <form asp-controller="Ville" asp-action="Search" method="get" class="mx-auto" style="max-width:600px">
+            <div class="input-group input-group-lg shadow">
+                <input type="text"
+                       name="nomVille"
+                       class="form-control"
+                       placeholder="Ex : Fès, Rabat, Casablanca..."
+                       required />
+
+                <button class="btn btn-danger px-4">
+                    Découvrir
+                </button>
+            </div>
+        </form>
+
+    </div>
+</section>
+

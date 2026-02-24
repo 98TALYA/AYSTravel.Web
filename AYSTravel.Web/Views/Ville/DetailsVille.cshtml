@@ -1,0 +1,223 @@
+﻿
+@using System.Linq
+
+@{
+    ViewData["Title"] = $"Ville - {Model.Nom}";
+}
+
+<div class="container py-5">
+
+    <!-- ===== HERO / Nom et description ===== -->
+    <div class="row mb-5">
+        <div class="col-md-12 text-center">
+            <h1 class="city-title">@Model.Nom</h1>
+            <p class="city-subtitle">@Model.Description</p>
+
+            <div class="city-meta mt-3">
+                <span>📍 Ville hôte officielle</span>
+                <span>🏟 Coupe du Monde 2030</span>
+                <span>🌍 Maroc</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== IMAGE PRINCIPALE + INFORMATIONS ===== -->
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card shadow-lg" style="border-radius: 20px; overflow:hidden;">
+                <img src="@(string.IsNullOrEmpty(Model.ImageUrl)
+                                                     ? "/image/default.png"
+                                                     : "/image/" + Model.ImageUrl)"
+                     class="card-img-top"
+                     alt="@Model.Nom"
+                     style="height:400px; object-fit:cover;">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="info-card">
+                <h4 class="section-heading">Informations générales</h4>
+
+                <div class="info-item">
+                    <span>🏛 Monuments</span>
+                    <strong>@Model.NombreMonuments</strong>
+                    <a asp-controller="Monument" asp-action="Index" asp-route-villeId="@Model.Id">Voir</a>
+                </div>
+
+                <div class="info-item">
+                    <span>🎯 Activités</span>
+                    <strong>@Model.NombreActivites</strong>
+                    <a asp-controller="Activite" asp-action="Index" asp-route-villeId="@Model.Id">Voir</a>
+                </div>
+
+                <div class="info-item">
+                    <span>🚍 Transports</span>
+                    <strong>@Model.NombreTransports</strong>
+                    <a asp-controller="Transport" asp-action="Index" asp-route-villeId="@Model.Id">Voir</a>
+                </div>
+
+                <div class="info-item">
+                    <span>⚽ Matchs 2030</span>
+                    <strong>@Model.NombreMatchs</strong>
+                    <a asp-controller="Match" asp-action="Index" asp-route-villeId="@Model.Id">Voir</a>
+                </div>
+
+                <div class="info-item">
+                    <span>👥 Population</span>
+                    <strong>@Model.Population.ToString("N0")</strong>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Pourquoi visiter la ville ===== -->
+    <div class="container mt-5">
+        <div class="highlight-box">
+            <h3>Pourquoi visiter @Model.Nom ?</h3>
+            <p>
+                @Model.Nom est une ville stratégique pour la Coupe du Monde 2030.
+                Elle combine patrimoine historique, infrastructures modernes,
+                stades internationaux et une forte capacité d’accueil touristique.
+            </p>
+        </div>
+    </div>
+
+    <!-- ===== MONUMENTS ===== -->
+    @if (Model.Monuments?.Count > 0)
+    {
+        <h3 class="mt-5 text-warning fw-bold">Monuments</h3>
+        <div class="row g-4">
+
+            @{
+                var MonumentsToShow = Model.Monuments.Count > 6
+                ? Model.Monuments.GetRange(0, 6)
+                : Model.Monuments;
+            }
+
+            @foreach (var monument in MonumentsToShow)
+            {
+            
+            
+                <div class="col-md-4 col-sm-6">
+                    <div class="modern-card">
+                        <img src="@(string.IsNullOrEmpty(monument.ImageUrl) ? "/images/default-monument.jpg" : monument.ImageUrl)" />
+                        <div class="modern-card-body">
+                            <h5>@monument.Nom</h5>
+                            <p>@monument.Description</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- ===== ACTIVITÉS ===== -->
+    @if (Model.Activites?.Count > 0)
+    {
+        <h3 class="mt-5 text-warning fw-bold">Activités</h3>
+        <div class="row g-4">
+            @{
+                var ActivitesToShow = Model.Activites.Count > 6
+                ? Model.Activites.GetRange(0, 6)
+                : Model.Activites;
+            }
+
+            @foreach (var act in ActivitesToShow)
+            {
+            
+            
+                <div class="col-md-4 col-sm-6">
+                    <div class="modern-card">
+                        <div class="modern-card-body">
+                            <h5>@act.Nom</h5>
+                            <p>@act.Description</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- ===== MOYENS DE TRANSPORT ===== -->
+    @if (Model.MoyensTransports? .Count > 0)
+    {
+        <h3 class="mt-5 text-warning fw-bold">Moyens de Transport</h3>
+        <div class="row g-4">
+
+            @{
+                var MoyensTransportsToShow = Model.MoyensTransports.Count > 6
+                ? Model.MoyensTransports.GetRange(0, 6)
+                : Model.MoyensTransports;
+            }
+
+            @foreach (var t in MoyensTransportsToShow)
+            {
+            
+            
+                <div class="col-md-4 col-sm-6">
+                    <div class="modern-card">
+                        <div class="modern-card-body">
+                            <h5>@t.Nom</h5>
+                            <p>@t.Description</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- ===== MATCHS CM2030 ===== -->
+    @if (Model.Matchs?.Count > 0)
+    {
+        <h3 class="mt-5 text-warning fw-bold">Matchs Coupe du Monde 2030</h3>
+        <div class="row g-4">
+            @{
+                var MatchsToShow = Model.Matchs.Count > 6
+                ? Model.Matchs.GetRange(0, 6)
+                : Model.Matchs;
+            }
+    
+            @foreach (var match in MatchsToShow)
+            {
+            
+                <div class="col-md-6">
+                    <div class="match-card">
+                        <h5>@match.Equipe1 vs @match.Equipe2</h5>
+                        <p>Stade: @match.Stade</p>
+                        <p>Date: @match.Date.ToString("dd/MM/yyyy")</p>
+                        
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- ===== HÔTELS DISPONIBLES ===== -->
+    @if (Model.Hotels != null && Model.Hotels.Count > 0)
+    {
+        <h3 class="mt-5 text-warning fw-bold">Hôtels Disponibles</h3>
+        <div class="row g-4">
+            @{
+                var hotelsToShow = Model.Hotels.Count > 6
+                ? Model.Hotels.GetRange(0, 6)
+                : Model.Hotels;
+            }
+
+            @foreach (var hotel in hotelsToShow)
+            {
+                <div class="col-md-4 col-sm-6">
+                    <div class="hotel-card">
+                        <img src="@(string.IsNullOrEmpty(hotel.ImageUrl) ? "/image/default-hotel.jpg" : hotel.ImageUrl)"
+                             class="hotel-img" alt="@hotel.Nom" />
+                        <div class="hotel-body">
+                            <h5>@hotel.Nom</h5>
+                            <p>⭐ Note: @hotel.Note / 10</p>
+                            <a href="@hotel.BookingUrl" target="_blank" class="btn-booking">Réserver sur Booking</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

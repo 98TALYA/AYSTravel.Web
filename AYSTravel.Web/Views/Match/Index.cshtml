@@ -1,0 +1,77 @@
+﻿@model IEnumerable<AYSTravel.Web.ViewModels.MatchViewModel>
+
+@{
+    ViewData["Title"] = "Matchs";
+}
+
+<div class="container py-5">
+    <h1 class="text-center text-warning fw-bold mb-5">
+        ⚽ Matchs disponibles
+    </h1>
+
+    <div class="row g-4">
+        @foreach (var match in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card match-card shadow-lg h-100">
+
+                    <div class="card-body d-flex flex-column text-center">
+
+                        <h4 class="text-warning fw-bold mb-3">
+                            @match.Equipe1
+                            <span class="text-white">VS</span>
+                            @match.Equipe2
+                        </h4>
+
+                        <p class="text-white-50 mb-1">📍 @match.Stade</p>
+                        <p class="text-white-50 mb-1">🏙 @match.VilleNom</p>
+                        <p class="text-white-50 mb-3">
+                            📅 @match.Date.ToString("dd MMMM yyyy")
+                        </p>
+
+                        <div class="mt-auto">
+                            <a asp-action="Details"
+                               asp-route-id="@match.Id"
+                               class="btn btn-outline-light w-100 mb-2">
+                                Voir Détails
+                            </a>
+
+                            <a asp-controller="Ticket"
+                               asp-action="Acheter"
+                               asp-route-matchId="@match.Id"
+                               class="btn btn-gold w-100 fw-bold">
+                                🎟 Acheter Ticket
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .match-card {
+        border-radius: 20px;
+        background: linear-gradient(135deg,#0f2027,#203a43);
+        color: white;
+        transition: .3s;
+    }
+
+        .match-card:hover {
+            transform: translateY(-8px);
+        }
+
+    .btn-gold {
+        background: linear-gradient(45deg,#d4af37,#ffd700);
+        border: none;
+        color: black;
+        border-radius: 30px;
+        transition: .3s;
+    }
+
+        .btn-gold:hover {
+            transform: scale(1.05);
+        }
+</style>

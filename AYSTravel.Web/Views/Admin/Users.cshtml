@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+
+@{
+    ViewData["Title"] = "Gestion des utilisateurs";
+}
+
+<div class="container-fluid py-4">
+    <h1 class="mb-4 text-warning fw-bold">👤 Gestion des utilisateurs</h1>
+
+    <div class="table-responsive">
+        <table class="table table-dark table-striped table-hover align-middle">
+            <thead class="table-warning text-dark">
+                <tr>
+                    <th>Nom d'utilisateur</th>
+                    <th>Email</th>
+                    <th>Email confirmé</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>@user.Email</td>
+                        <td>@(user.EmailConfirmed ? "✔️" : "❌")</td>
+                        <td class="d-flex gap-2">
+                            <a asp-action="DetailsUser" asp-route-id="@user.Id" class="btn btn-outline-warning btn-sm">
+                                <i class="bi bi-pencil-fill"></i> Détails
+                            </a>
+                            <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post" class="d-inline">
+                                <button class="btn btn-outline-danger btn-sm" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
+                                    <i class="bi bi-trash-fill"></i> Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bouton retour Dashboard -->
+    <div class="mt-3">
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-gold fw-bold">
+            🔙 Retour au Dashboard
+        </a>
+    </div>
+</div>
