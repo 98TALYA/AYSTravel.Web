@@ -1,4 +1,5 @@
 ﻿using AYSTravel.Logic;
+using AYSTravel.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AYSTravel.Web.Controllers
@@ -14,14 +15,41 @@ namespace AYSTravel.Web.Controllers
 
         public IActionResult Index()
         {
-            return View(_manager.GetAll());
+            var restos = _manager.GetAll()
+                .Select(r => new RestaurationViewModel
+                {
+                    Id = r.Id,
+                    Nom = r.Nom,
+                    Type = r.Type,
+                    Adresse = r.Adresse,
+                    Budget = r.Budget,
+                    ImageUrl = r.ImageUrl,
+                    VilleId = r.VilleId
+                })
+                .ToList();
+
+            return View(restos);
         }
 
         public IActionResult Details(int id)
         {
-            var restauration = _manager.GetById(id);
-            if (restauration == null) return NotFound();
-            return View(restauration);
+            var r = _manager.GetById(id);
+
+            if (r == null)
+                return NotFound();
+
+            var resto = new RestaurationViewModel
+            {
+                Id = r.Id,
+                Nom = r.Nom,
+                Type = r.Type,
+                Adresse = r.Adresse,
+                Budget = r.Budget,
+                ImageUrl = r.ImageUrl,
+                VilleId = r.VilleId
+            };
+
+            return View(resto);
         }
     }
 }

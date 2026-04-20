@@ -8,6 +8,7 @@
         public int TotalMonuments { get; set; }
         public int TotalVilles { get; set; }
         public int TotalTransports { get; set; }
+        public int TotalRestaurations { get; set; }
 
     }
 }

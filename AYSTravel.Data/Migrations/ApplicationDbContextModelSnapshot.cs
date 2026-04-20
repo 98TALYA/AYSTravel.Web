@@ -34,8 +34,7 @@ namespace AYSTravel.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageURL")
-                        .IsRequired()
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
@@ -75,16 +74,12 @@ namespace AYSTravel.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Stade")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VilleId")
+                    b.Property<int>("StadeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VilleId");
+                    b.HasIndex("StadeId");
 
                     b.ToTable("Matchs");
                 });
@@ -106,7 +101,6 @@ namespace AYSTravel.Web.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
@@ -180,6 +174,10 @@ namespace AYSTravel.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Nom")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -198,6 +196,31 @@ namespace AYSTravel.Web.Data.Migrations
                     b.ToTable("Restaurations");
                 });
 
+            modelBuilder.Entity("AYSTravel.Data.Entities.Stade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VilleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VilleId");
+
+                    b.ToTable("Stades");
+                });
+
             modelBuilder.Entity("AYSTravel.Data.Entities.Ville", b =>
                 {
                     b.Property<int>("Id")
@@ -207,11 +230,9 @@ namespace AYSTravel.Web.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
@@ -240,7 +261,6 @@ namespace AYSTravel.Web.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
@@ -475,13 +495,13 @@ namespace AYSTravel.Web.Data.Migrations
 
             modelBuilder.Entity("AYSTravel.Data.Entities.Match", b =>
                 {
-                    b.HasOne("AYSTravel.Data.Entities.Ville", "Ville")
+                    b.HasOne("AYSTravel.Data.Entities.Stade", "Stade")
                         .WithMany("Matchs")
-                        .HasForeignKey("VilleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("StadeId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Ville");
+                    b.Navigation("Stade");
                 });
 
             modelBuilder.Entity("AYSTravel.Data.Entities.Monument", b =>
@@ -512,6 +532,17 @@ namespace AYSTravel.Web.Data.Migrations
                         .WithMany("Restaurations")
                         .HasForeignKey("VilleId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ville");
+                });
+
+            modelBuilder.Entity("AYSTravel.Data.Entities.Stade", b =>
+                {
+                    b.HasOne("AYSTravel.Data.Entities.Ville", "Ville")
+                        .WithMany("Stades")
+                        .HasForeignKey("VilleId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Ville");
@@ -579,19 +610,24 @@ namespace AYSTravel.Web.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("AYSTravel.Data.Entities.Stade", b =>
+                {
+                    b.Navigation("Matchs");
+                });
+
             modelBuilder.Entity("AYSTravel.Data.Entities.Ville", b =>
                 {
                     b.Navigation("Activites");
 
                     b.Navigation("Hotels");
 
-                    b.Navigation("Matchs");
-
                     b.Navigation("Monuments");
 
                     b.Navigation("MoyensTransports");
 
                     b.Navigation("Restaurations");
+
+                    b.Navigation("Stades");
                 });
 #pragma warning restore 612, 618
         }

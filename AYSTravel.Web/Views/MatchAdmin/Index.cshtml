@@ -1,0 +1,137 @@
+﻿@model List<AYSTravel.Data.Entities.Match>
+
+@{
+    ViewData["Title"] = "Gestion des Matchs";
+}
+
+<div class="container-fluid py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Gestion des Matchs</h3>
+            <p class="text-muted mb-0">
+                Administration des matchs Coupe du Monde 2030
+            </p>
+        </div>
+
+        <a asp-action="Create" class="btn btn-dark px-4">
+            <i class="bi bi-plus-circle me-2"></i> Ajouter Match
+        </a>
+    </div>
+
+    <!-- STATS -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <h6 class="text-muted mb-2">Total Matchs</h6>
+                    <h3 class="fw-bold mb-0">@Model.Count()</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABLE CARD -->
+    <div class="card shadow-sm border-0 rounded-4">
+
+        <div class="card-body p-3">
+
+            <!-- SEARCH -->
+            <div class="mb-3">
+                <input type="text"
+                       id="searchInput"
+                       class="form-control"
+                       placeholder="Rechercher équipe ou stade...">
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0"
+                       id="matchTable">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Date</th>
+                            <th>Match</th>
+                            <th>Stade</th>
+                            
+                            <th class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            foreach (var m in Model)
+                            {
+                                <tr>
+                                    <td class="fw-semibold">
+                                        @m.Date.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-dark me-2">
+                                            @m.Equipe1
+                                        </span>
+                                        <span class="text-muted">vs</span>
+                                        <span class="badge bg-secondary ms-2">
+                                            @m.Equipe2
+                                        </span>
+                                    </td>
+
+                                    <td>@m.Stade.Nom</td>
+
+                                    
+
+                                    <td class="text-end pe-4">
+                                        <a asp-action="Edit"
+                                           asp-route-id="@m.Id"
+                                           class="btn btn-sm btn-outline-warning me-2">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-id="@m.Id"
+                                           class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5"
+                                    class="text-center py-4 text-muted">
+                                    Aucun match enregistré.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- SEARCH SCRIPT -->
+@section Scripts {
+    <script>
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+
+            let value = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#matchTable tbody tr");
+
+            rows.forEach(row => {
+                row.style.display =
+                    row.innerText.toLowerCase().includes(value)
+                    ? ""
+                    : "none";
+            });
+        });
+    </script>
+}

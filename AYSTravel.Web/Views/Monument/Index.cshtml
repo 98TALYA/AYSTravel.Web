@@ -1,0 +1,67 @@
+﻿@model List<AYSTravel.Data.Entities.Monument>
+
+@{
+    ViewData["Title"] = "Explorer les Monuments";
+}
+
+<!-- HERO SECTION -->
+<section class="hero-section d-flex align-items-center justify-content-center text-white text-center">
+    <div>
+        <h1 class="display-4 fw-bold">Découvrir les Monuments</h1>
+        <p class="lead">Explorez les trésors culturels des villes hôtes 2030</p>
+    </div>
+</section>
+
+<div class="container py-5">
+
+    <div class="row g-4">
+
+        @foreach (var monument in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card monument-card border-0 shadow-lg rounded-4 h-100">
+
+                    <div class="position-relative">
+
+                        <img src="@monument.ImageUrl"
+                             class="card-img-top rounded-top-4"
+                             style="height:250px; object-fit:cover;" />
+
+                       
+
+                    </div>
+
+                    <div class="card-body d-flex flex-column p-4">
+
+                        <h5 class="fw-bold mb-3">
+                            @monument.Nom
+                        </h5>
+
+                        <p class="text-muted small mb-2">
+                            <i class="bi bi-geo-alt-fill me-1"></i>
+                            @monument.Adress
+                        </p>
+
+                        <p class="text-muted flex-grow-1">
+                            @(monument.Description?.Length > 120
+                                                    ? monument.Description.Substring(0, 120) + "..."
+                                                    : monument.Description)
+                    </p>
+
+                        <a asp-action="Details"
+                           asp-route-id="@monument.Id"
+                           class="btn btn-dark rounded-pill mt-3">
+                            Voir plus
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+                }
+
+    </div>
+
+</div>

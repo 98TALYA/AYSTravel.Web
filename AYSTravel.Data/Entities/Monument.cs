@@ -19,7 +19,7 @@ namespace AYSTravel.Data.Entities
 
         public string Adress { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
 
 
@@ -27,6 +27,6 @@ namespace AYSTravel.Data.Entities
         public int VilleId { get; set; }
 
         [ForeignKey("VilleId")]
-        public Ville Ville { get; set; }
+        public Ville? Ville { get; set; }
     }
 }

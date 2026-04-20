@@ -17,14 +17,17 @@ namespace AYSTravel.Data.Entities
 
         public string Type { get; set; }
 
+
         public string Description { get; set; }
 
-        public string ImageURL { get; set; }
+
+
+        public string? ImageUrl { get; set; }
 
         // Relation Ville
         public int VilleId { get; set; }
 
         [ForeignKey("VilleId")]
-        public Ville Ville { get; set; }
+        public Ville? Ville { get; set; }
     }
 }

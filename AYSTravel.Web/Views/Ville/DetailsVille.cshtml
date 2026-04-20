@@ -1,5 +1,7 @@
-﻿
-@using System.Linq
+﻿@using System.Linq
+@using AYSTravel.Data.Entities
+@using System.Diagnostics
+@using AYSTravel.Logic.Models
 
 @{
     ViewData["Title"] = $"Ville - {Model.Nom}";
@@ -51,9 +53,10 @@
                 </div>
 
                 <div class="info-item">
-                    <span>🚍 Transports</span>
-                    <strong>@Model.NombreTransports</strong>
-                    <a asp-controller="Transport" asp-action="Index" asp-route-villeId="@Model.Id">Voir</a>
+                    <span>🍽 Restauration</span>
+                    <strong>@Model.NombreRestaurations</strong>
+                    
+                    <a asp-controller="Restauration" asp-action="Index" asp-route-villeId="@Model.Id">Voir</a>
                 </div>
 
                 <div class="info-item">
@@ -129,6 +132,8 @@
             
                 <div class="col-md-4 col-sm-6">
                     <div class="modern-card">
+                        <img src="@act.ImageUrl" />
+                        
                         <div class="modern-card-body">
                             <h5>@act.Nom</h5>
                             <p>@act.Description</p>
@@ -159,7 +164,12 @@
                     <div class="modern-card">
                         <div class="modern-card-body">
                             <h5>@t.Nom</h5>
+                            <p>Type: @t.Type</p>
                             <p>@t.Description</p>
+                            <p>@t.Tarif</p>
+                            <p>@t.HeureDepart</p>
+                            <p>@t.HeureArrivee</p>                        
+
                         </div>
                     </div>
                 </div>
@@ -183,7 +193,13 @@
             
                 <div class="col-md-6">
                     <div class="match-card">
-                        <h5>@match.Equipe1 vs @match.Equipe2</h5>
+                        <h5>
+                            <img src="https://flagsapi.com/@match.Equipe1.Substring(0, 2).ToUpper()/flat/32.png"
+                             class="flag-img me-2" />
+                        @match.Equipe1 vs @match.Equipe2
+                            <img src="https://flagsapi.com/@match.Equipe2.Substring(0, 2).ToUpper()/flat/32.png"
+                                 class="flag-img me-2" />
+                    </h5>
                         <p>Stade: @match.Stade</p>
                         <p>Date: @match.Date.ToString("dd/MM/yyyy")</p>
                         
@@ -208,7 +224,8 @@
             {
                 <div class="col-md-4 col-sm-6">
                     <div class="hotel-card">
-                        <img src="@(string.IsNullOrEmpty(hotel.ImageUrl) ? "/image/default-hotel.jpg" : hotel.ImageUrl)"
+
+                        <img src="@hotel.ImageUrl"
                              class="hotel-img" alt="@hotel.Nom" />
                         <div class="hotel-body">
                             <h5>@hotel.Nom</h5>

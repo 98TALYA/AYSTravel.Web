@@ -1,0 +1,72 @@
+﻿@using AYSTravel.Data.Entities
+
+@model AYSTravel.Web.ViewModels.MatchViewModel
+
+<div class="container py-5">
+
+    <div class="card shadow-lg p-5 match-card text-center">
+
+       <img src="~/image/stades/@Model.StadeImageUrl"
+            class="card-img-top mb-4"
+             style="height:300px;object-fit:cover;" />
+
+        <h2 class="text-warning fw-bold mb-3">
+            <img src="https://flagsapi.com/@Model.Equipe1.Substring(0, 2).ToUpper()/flat/32.png"
+                 class="flag-img me-2" />
+                                               VS
+
+            <img src="https://flagsapi.com/@Model.Equipe2.Substring(0, 2).ToUpper()/flat/32.png"
+                 class="flag-img ms-2" />
+        </h2>
+
+        <div id="detailCountdown"
+             data-date="@Model.Date.ToString("yyyy-MM-ddTHH:mm:ss")"
+             class="countdown mb-4">
+        </div>
+        
+        <p>🏟 Stade : @Model.StadeNom</p>
+            
+      
+        <p>🏙 Ville : @Model.VilleNom</p>
+        <p>📅 @Model.Date.ToString("dd MMMM yyyy")</p>
+       
+
+        <a href="https://www.fifa.com/tickets" class="btn btn-gold rounded-pill mt-4">
+            🎟 Réserver Maintenant
+        </a>
+        <a asp-action="Index"
+           class="btn btn-outline-light rounded-pill mt-4">
+            Retour
+        </a>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        let el = document.getElementById("detailCountdown");
+
+        function updateDetailCountdown() {
+
+            let matchDate = new Date(el.dataset.date);
+            let now = new Date();
+            let diff = matchDate - now;
+
+            if (diff <= 0) {
+                el.innerHTML = "🔴 Match en cours";
+                return;
+            }
+
+            let days = Math.floor(diff/(1000*60*60*24));
+            let hours = Math.floor((diff/(1000*60*60))%24);
+            let minutes = Math.floor((diff/(1000*60))%60);
+            let seconds = Math.floor((diff/1000)%60);
+
+            el.innerHTML = `⏳ ${days}j ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        setInterval(updateDetailCountdown,1000);
+        updateDetailCountdown();
+    </script>
+}

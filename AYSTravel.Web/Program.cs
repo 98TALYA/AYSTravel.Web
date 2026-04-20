@@ -46,6 +46,8 @@ builder.Services.AddScoped<ActiviteManager>();
 builder.Services.AddScoped<MonumentManager>();
 builder.Services.AddScoped<MoyenTransportManager>();
 builder.Services.AddScoped<VilleManager>();
+builder.Services.AddScoped<RestaurationManager>() ;
+builder.Services.AddScoped<HotelManager>();
 
 var app = builder.Build();
 

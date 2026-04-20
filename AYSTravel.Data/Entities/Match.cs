@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using AYSTravel.Web.Data.Migrations;
 
 namespace AYSTravel.Data.Entities
 {
@@ -15,14 +16,16 @@ namespace AYSTravel.Data.Entities
         public DateTime Date { get; set; }
 
         public string Equipe1 { get; set; }
+
         public string Equipe2 { get; set; }
 
-        public string Stade { get; set; }
+        // Clé étrangère vers Stade
+        public int StadeId { get; set; }
 
-        // Relation Ville
-        public int VilleId { get; set; }
-
-        [ForeignKey("VilleId")]
-        public Ville Ville { get; set; }
+        // Navigation vers Stade
+        
+        public Stade? Stade { get; set; }
+       
+       
     }
 }

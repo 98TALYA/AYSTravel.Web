@@ -1,4 +1,6 @@
-﻿using AYSTravel.Logic;
+﻿using System.Linq;
+using AYSTravel.Data.Entities;
+using AYSTravel.Logic;
 using AYSTravel.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -38,14 +40,14 @@ namespace AYSTravel.Web.Controllers
             var vvm = new VilleViewModel
             {
                 Id = ville.Id,
-                Nom = ville.Nom,
                 Description = ville.Description,
                 ImageUrl = ville.ImageUrl,
                 NombreMonuments = ville.Monuments?.Count ?? 0,
                 NombreActivites = ville.Activites?.Count ?? 0,
                 NombreRestaurations = ville.Restaurations?.Count ?? 0,
-                NombreMatchs = ville.Matchs?.Count ?? 0,
+                NombreMatchs = ville.Stades?.SelectMany(s => s.Matchs)?.Count() ?? 0,
                 NombreTransports = ville.MoyensTransports?.Count ?? 0,
+                
                 
 
                 Monuments = ville.Monuments?.Select(m => new MonumentViewModel
@@ -58,23 +60,29 @@ namespace AYSTravel.Web.Controllers
                 Activites = ville.Activites?.Select(a => new ActiviteViewModel
                 {
                     Nom = a.Nom,
-                    Description = a.Description
+                    Description = a.Description,
+                    ImageUrl = a.ImageUrl
+
                 }).ToList(),
 
                 MoyensTransports = ville.MoyensTransports?.Select(t => new MoyenTransportViewModel
                 {
                     Nom = t.Nom,
-                    Description = t.Description
+                    Description = t.Description, 
+                    Type = t.Type, 
+                    HeureArrivee = t.HeureArrivee,
+                    HeureDepart = t.HeureDepart,
                 }).ToList(),
 
-                Matchs = ville.Matchs?.Select(ma => new MatchViewModel
-                {
-                    Equipe1 = ma.Equipe1,
-                    Equipe2 = ma.Equipe2,
-                    Stade = ma.Stade,
-                    Date = ma.Date,
-                    
-                }).ToList(),
+                Matchs = ville.Stades?
+    .SelectMany(s => s.Matchs)
+    .Select(ma => new MatchViewModel
+    {
+        Equipe1 = ma.Equipe1,
+        Equipe2 = ma.Equipe2,
+        Date = ma.Date,
+        StadeNom = ma.Stade?.Nom
+    }).ToList(),
 
                 Hotels = ville.Hotels?.Select(h => new HotelViewModel
                 {
@@ -112,7 +120,7 @@ namespace AYSTravel.Web.Controllers
                 NombreMonuments = v.Monuments?.Count ?? 0,
                 NombreActivites = v.Activites?.Count ?? 0,
                 NombreRestaurations = v.Restaurations?.Count ?? 0,
-                NombreMatchs = v.Matchs?.Count ?? 0,
+                NombreMatchs = v.Stades?.SelectMany(s => s.Matchs)?.Count() ?? 0,
                 NombreTransports = v.MoyensTransports?.Count ?? 0
             }).ToList();
 

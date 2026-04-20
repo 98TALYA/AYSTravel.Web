@@ -1,0 +1,105 @@
+﻿@model AYSTravel.Data.Entities.Match
+
+@{
+    ViewData["Title"] = "Ajouter Match";
+}
+
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Ajouter un Match</h3>
+            <p class="text-muted mb-0">
+                Ajouter un nouveau match Coupe du Monde 2030
+            </p>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+            
+
+            <form asp-action="Create" method="post">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="row g-4">
+
+                    <!-- Date -->
+                    <div class="col-md-3">
+                        <label asp-for="Date" class="form-label fw-semibold"></label>
+                        <input asp-for="Date"
+                               type="date"
+                               class="form-control shadow-sm" />
+                        <span asp-validation-for="Date"
+                              class="text-danger small"></span>
+                    </div>
+
+                    <!-- Équipe 1 -->
+                    <div class="col-md-4">
+                        <label asp-for="Equipe1"
+                               class="form-label fw-semibold"></label>
+                        <input asp-for="Equipe1"
+                               class="form-control shadow-sm"
+                               placeholder="Ex: Maroc" />
+                        <span asp-validation-for="Equipe1"
+                              class="text-danger small"></span>
+                    </div>
+
+                    <!-- Équipe 2 -->
+                    <div class="col-md-4">
+                        <label asp-for="Equipe2"
+                               class="form-label fw-semibold"></label>
+                        <input asp-for="Equipe2"
+                               class="form-control shadow-sm"
+                               placeholder="Ex: Espagne" />
+                        <span asp-validation-for="Equipe2"
+                              class="text-danger small"></span>
+                    </div>
+
+                    <!-- Stade -->
+                    <div class="col-md-4">
+                        <label asp-for="StadeId" class="form-label fw-semibold"></label>
+
+                        <select asp-for="StadeId"
+                                asp-items="ViewBag.Stades"
+                                class="form-select shadow-sm">
+                            <option value="">-- Choisir un stade --</option>
+                        </select>
+
+                        <span asp-validation-for="StadeId" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Ville -->
+                  
+
+                </div>
+
+                <!-- Buttons -->
+                <div class="mt-5 d-flex justify-content-end">
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary px-4 me-3">
+                        <i class="bi bi-arrow-left me-2"></i>
+                        Retour
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-dark px-4">
+                        <i class="bi bi-check-circle me-2"></i>
+                        Enregistrer
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

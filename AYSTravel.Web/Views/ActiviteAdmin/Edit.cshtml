@@ -1,0 +1,142 @@
+﻿@model AYSTravel.Data.Entities.Activite
+
+@{
+    ViewData["Title"] = "Modifier Activité";
+}
+
+<div class="container-fluid py-5">
+
+    <div class="card shadow-sm border-0 rounded-4 mx-auto" style="max-width:700px;">
+
+        <div class="card-body p-4">
+
+            <!-- HEADER -->
+            <div class="mb-4">
+                <h3 class="fw-bold mb-1">Modifier l’activité</h3>
+                <p class="text-muted mb-0">
+                    Mettre à jour les informations de l’activité
+                </p>
+            </div>
+
+            <hr />
+
+            <form asp-action="Edit"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="Id" />
+
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                <div class="row g-4">
+
+                    <!-- NOM -->
+                    <div class="col-md-6">
+                        <label asp-for="Nom" class="form-label fw-semibold"></label>
+                        <input asp-for="Nom" class="form-control" />
+                        <span asp-validation-for="Nom" class="text-danger small"></span>
+                    </div>
+
+                    <!-- TYPE (si existe) -->
+                    <div class="col-md-6">
+                        <label asp-for="Type" class="form-label fw-semibold"></label>
+                        <input asp-for="Type" class="form-control" placeholder="Ex: Sport, Culture..." />
+                    </div>
+
+                    <!-- DESCRIPTION -->
+                    <div class="col-12">
+                        <label asp-for="Description" class="form-label fw-semibold"></label>
+                        <textarea asp-for="Description"
+                                  class="form-control"
+                                  rows="4"></textarea>
+                    </div>
+
+                    <!-- IMAGE UPLOAD -->
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">Image</label>
+
+                        <input type="file"
+                               name="imageFile"
+                               class="form-control"
+                               id="imageInput"
+                               accept="image/*" />
+
+                        <!-- IMAGE ACTUELLE -->
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <div class="mt-2">
+                                <img src="~/images/@Model.ImageUrl"
+                                     class="img-fluid rounded shadow-sm"
+                                     style="max-height:180px;" />
+                            </div>
+                        }
+
+                        <!-- PREVIEW -->
+                        <div class="mt-2">
+                            <img id="previewImage"
+                                 class="img-fluid rounded shadow-sm"
+                                 style="max-height:180px; display:none;" />
+                        </div>
+
+                    </div>
+
+                    <!-- VILLE (si relation) -->
+                    <div class="col-md-6">
+                        <label asp-for="VilleId" class="form-label fw-semibold"></label>
+
+                        <select asp-for="VilleId"
+                                asp-items="ViewBag.Villes"
+                                class="form-select">
+                            <option value="">-- Choisir une ville --</option>
+                        </select>
+
+                        <span asp-validation-for="VilleId" class="text-danger small"></span>
+                    </div>
+
+                </div>
+
+                <hr class="my-4" />
+
+                <!-- ACTIONS -->
+                <div class="d-flex justify-content-end gap-2">
+
+                    <a asp-action="Index" class="btn btn-outline-secondary px-4">
+                        Annuler
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-dark px-4">
+                        <i class="bi bi-check-circle me-2"></i>
+                        Enregistrer
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById("imageInput")
+        .addEventListener("change", function () {
+
+            let file = this.files[0];
+            let img = document.getElementById("previewImage");
+
+            if (file) {
+                img.src = URL.createObjectURL(file);
+                img.style.display = "block";
+            } else {
+                img.style.display = "none";
+            }
+        });
+    </script>
+}

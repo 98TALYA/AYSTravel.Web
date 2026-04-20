@@ -14,9 +14,7 @@ namespace AYSTravel.Web.Data.Migrations
                 name: "FK_Activites_Ville_VilleId",
                 table: "Activites");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_Matchs_Ville_VilleId",
-                table: "Matchs");
+            
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Monuments_Ville_VilleId",

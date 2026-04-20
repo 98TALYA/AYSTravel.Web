@@ -1,0 +1,55 @@
+﻿@model AYSTravel.Data.Entities.Activite
+
+@{
+    ViewData["Title"] = "Ajouter Activité";
+}
+
+<div class="container py-4">
+
+    <h3 class="fw-bold mb-4">Ajouter une Activité</h3>
+
+    <form asp-action="Create" method="post">
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Nom</label>
+                <input asp-for="Nom" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Type</label>
+                <input asp-for="Type" class="form-control" />
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <label class="form-label">Description</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Image</label>
+                <input asp-for="ImageUrl" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Ville</label>
+                <select asp-for="VilleId"
+                        class="form-control"
+                        asp-items="ViewBag.Villes">
+                </select>
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-dark">
+            Enregistrer
+        </button>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Retour
+        </a>
+
+    </form>
+
+</div>

@@ -1,0 +1,120 @@
+﻿@model IEnumerable<AYSTravel.Data.Entities.Monument>
+
+<div class="container-fluid py-5">
+
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+
+            <!-- HEADER -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold">Gestion des Monuments</h3>
+
+                <a asp-action="Create" class="btn btn-dark">
+                    + Ajouter Monument
+                </a>
+            </div>
+
+            <!-- STATS -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body">
+                            <h6 class="text-muted mb-2">Total Monuments</h6>
+                            <h3 class="fw-bold mb-0">@Model.Count()</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEARCH -->
+            <div class="mb-3">
+                <input type="text"
+                       id="searchInput"
+                       class="form-control shadow-sm"
+                       placeholder="Rechercher monument ou ville..." />
+            </div>
+
+            <!-- TABLE -->
+            <div class="table-responsive">
+
+                <table id="monumentTable" class="table table-hover align-middle">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Image</th>
+                            <th>Nom</th>
+                            <th>Adresse</th>
+                            <th>Ville</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var m in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    <img src="@Url.Content(m.ImageUrl)"
+                                         style="width:70px;height:50px;object-fit:cover"
+                                         class="rounded shadow-sm" />
+                                </td>
+
+                                <td class="fw-semibold">@m.Nom</td>
+
+                                <td>@m.Adress</td>
+
+                                <td>@m.Ville?.Nom</td>
+
+                                <td class="text-center">
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@m.Id"
+                                       class="btn btn-sm btn-outline-warning me-2">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@m.Id"
+                                       class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+
+            let value = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#monumentTable tbody tr");
+
+            rows.forEach(row => {
+
+                row.style.display =
+                row.innerText.toLowerCase().includes(value)
+                ? ""
+                : "none";
+
+            });
+
+        });
+
+    </script>
+}

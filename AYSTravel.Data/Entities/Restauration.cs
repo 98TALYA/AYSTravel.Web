@@ -21,10 +21,11 @@ namespace AYSTravel.Data.Entities
 
         public string Budget { get; set; } // Economique, Moyen, Elevé
 
+        public string ImageUrl { get; set; }
 
         public int VilleId { get; set; }
 
         [ForeignKey("VilleId")]
-        public Ville Ville { get; set; }
+        public Ville? Ville { get; set; }
     }
 }

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<AYSTravel.Web.ViewModels.RestaurationViewModel>
+
+@{
+    ViewData["Title"] = "Restaurants & Cafés";
+}
+
+<section class="food-hero">
+    <div class="container text-center">
+        <h1>Restaurants & Cafés</h1>
+        <p>Découvrez les meilleures adresses culinaires des villes hôtes</p>
+    </div>
+</section>
+
+<section class="container py-5">
+
+    <div class="row g-4">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6">
+
+                <div class="resto-card">
+
+                    <img src="@(string.IsNullOrEmpty(item.ImageUrl)
+                                    ? "/image/default-restaurations.png": "" + item.ImageUrl)" />
+                                                             
+                    <div class="card-body">
+
+                        <span class="resto-rating">
+                            🍽 @item.Type
+                        </span>
+
+                        <h5>@item.Nom</h5>
+
+                        <p>
+                            📍 @item.Adresse
+                        </p>
+
+                        <p>
+                            💰 Budget : <strong>@item.Budget</strong>
+                        </p>
+
+                        <a asp-action="Details"
+                           asp-route-id="@item.Id"
+                           class="btn-resto">
+                            Voir détails
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</section>

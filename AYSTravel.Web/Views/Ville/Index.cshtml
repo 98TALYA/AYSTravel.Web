@@ -4,56 +4,72 @@
     ViewData["Title"] = "Villes Officielles - Coupe du Monde 2030";
 }
 
-<section class="official-hero">
-    <div class="container text-center">
-        <h1>Coupe du Monde 2030</h1>
-        <p>Les villes hôtes du Royaume du Maroc</p>
+<!-- HERO -->
+<section class="official-hero d-flex align-items-center">
+    <div class="container text-center text-white">
+        <h1 class="display-3 fw-bold">Coupe du Monde 2030</h1>
+        <p class="lead">Découvrez les villes hôtes du Royaume du Maroc</p>
     </div>
 </section>
 
+<!-- VILLES -->
 <section class="container py-5">
 
-    <div class="row g-5">
+    <div class="row g-4">
+
         @foreach (var ville in Model.Villes)
         {
-            <div class="col-lg-6">
-                <div class="official-card">
-                    <div class="card-image">
-                        <img src="/image/@ville.ImageUrl"
-                         alt="@ville.Nom" />
-                </div>
+            <div class="col-md-6 col-lg-4">
 
-                    <div class="card-content">
-                        <h3>@ville.Nom</h3>
-                        <p>@ville.Description</p>
+                <div class="ville-card shadow-lg">
 
-                        <div class="card-stats">
+                    <div class="ville-img">
+                        <img src="/image/@ville.ImageUrl" alt="@ville.Nom">
+                    </div>
+
+                    <div class="ville-body">
+
+                        <h4>@ville.Nom</h4>
+
+                        <p class="ville-desc">
+                            @(ville.Description.Length > 120
+                                                    ? ville.Description.Substring(0, 120) + "..."
+                                                    : ville.Description)
+                    </p>
+
+                        <div class="ville-stats">
+
                             <div>
-                                <strong>@ville.NombreMonuments</strong>
-                                <span>Monuments</span>
+                                <span class="number">@ville.NombreMonuments</span>
+                                <span class="label">Monuments</span>
                             </div>
+
                             <div>
-                                <strong>@ville.NombreActivites</strong>
-                                <span>Activités</span>
+                                <span class="number">@ville.NombreActivites</span>
+                                <span class="label">Activités</span>
                             </div>
+
                             <div>
-                                <strong>@ville.NombreTransports</strong>
-                                <span>Transports</span>
+                                <span class="number">@ville.NombreTransports</span>
+                                <span class="label">Transports</span>
                             </div>
+
                         </div>
 
                         <a asp-controller="Ville"
                            asp-action="DetailsVille"
                            asp-route-id="@ville.Id"
-                           class="btn-official">
-                            Voir les détails
+                           class="btn-ville">
+                            Explorer
                         </a>
 
                     </div>
 
                 </div>
+
             </div>
                 }
+
     </div>
 
 </section>

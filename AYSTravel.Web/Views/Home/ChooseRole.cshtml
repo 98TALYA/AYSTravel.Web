@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Bienvenue";
+}
+
+<section class="hero-travel">
+
+    <div class="overlay"></div>
+
+    <div class="container hero-content">
+
+        <div class="text-center text-white mb-5">
+            <h1 class="display-4 fw-bold">Bienvenue sur AYSTravel</h1>
+            <p class="lead">Découvrez le Maroc autrement 🌍</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+
+            <!-- VISITEUR -->
+            <div class="col-md-4">
+                <div class="role-card">
+
+                    <div class="role-icon">🌍</div>
+
+                    <h4>Visiteur</h4>
+
+                    <p>
+                        Explorer les villes, hôtels, restaurants et activités.
+                    </p>
+
+                    <a 
+                       asp-action="Index"
+                       asp-controller="Home"
+                       class="btn role-btn">
+                        Explorer
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- UTILISATEUR -->
+            <div class="col-md-4">
+                <div class="role-card">
+
+                    <div class="role-icon">👤</div>
+
+                    <h4>Utilisateur</h4>
+
+                    <p>
+                        Connectez-vous pour gérer vos voyages.
+                    </p>
+
+                    <a asp-area="Identity"
+                       asp-page="/Account/Login"
+                       class="btn role-btn">
+                        Se connecter
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- ADMIN -->
+            <div class="col-md-4">
+                <div class="role-card">
+
+                    <div class="role-icon">⚙</div>
+
+                    <h4>Administrateur</h4>
+
+                    <p>
+                        Gérer les villes, hôtels, restaurants et activités.
+                    </p>
+
+                    <a asp-area="Identity"
+                       asp-page="/Account/Login"
+                       
+                       class="btn role-btn">
+                        Admin Panel
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

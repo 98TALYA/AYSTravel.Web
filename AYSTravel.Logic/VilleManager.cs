@@ -15,7 +15,7 @@ namespace AYSTravel.Logic
             _context = context;
         }
 
-        // Récupère toutes les villes avec leurs hôtels
+        // Récupère toutes les villes avec leurs données
         public List<Ville> GetAll()
         {
             return _context.Villes
@@ -23,8 +23,9 @@ namespace AYSTravel.Logic
                 .Include(v => v.Monuments)
                 .Include(v => v.Activites)
                 .Include(v => v.MoyensTransports)
-                .Include(v => v.Matchs)
                 .Include(v => v.Restaurations)
+                .Include(v => v.Stades)
+                    .ThenInclude(s => s.Matchs)
                 .ToList();
         }
 
@@ -36,8 +37,9 @@ namespace AYSTravel.Logic
                 .Include(v => v.Monuments)
                 .Include(v => v.Activites)
                 .Include(v => v.MoyensTransports)
-                .Include(v => v.Matchs)
                 .Include(v => v.Restaurations)
+                .Include(v => v.Stades)
+                    .ThenInclude(s => s.Matchs)
                 .FirstOrDefault(v => v.Id == id);
         }
 
@@ -51,14 +53,25 @@ namespace AYSTravel.Logic
         // Mettre à jour une ville
         public void Update(Ville ville)
         {
-            _context.Villes.Update(ville);
-            _context.SaveChanges();
+            var existing = _context.Villes.Find(ville.Id);
+
+            if (existing != null)
+            {
+                existing.Nom = ville.Nom;
+                existing.Description = ville.Description;
+                existing.ImageUrl = ville.ImageUrl;
+
+                _context.SaveChanges();
+            }
         }
+
+
 
         // Supprimer une ville
         public void Delete(int id)
         {
             var ville = _context.Villes.Find(id);
+
             if (ville != null)
             {
                 _context.Villes.Remove(ville);

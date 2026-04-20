@@ -1,0 +1,104 @@
+﻿@model AYSTravel.Data.Entities.Match
+
+@{
+    ViewData["Title"] = "Modifier Match";
+}
+
+<div class="container-fluid py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Modifier le Match</h3>
+            <p class="text-muted mb-0">
+                Mise à jour des informations du match sélectionné
+            </p>
+        </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+            <div asp-validation-summary="All" class="text-danger mb-3">
+            <form asp-action="Edit" method="post">
+
+                <!-- IMPORTANT -->
+                <input type="hidden" asp-for="Id" />
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="row g-4">
+
+                    <!-- Date -->
+                    <div class="col-md-3">
+                        <label asp-for="Date"
+                               class="form-label fw-semibold"></label>
+                        <input asp-for="Date"
+                               type="date"
+                               class="form-control shadow-sm" />
+                        <span asp-validation-for="Date"
+                              class="text-danger small"></span>
+                    </div>
+
+                    <!-- Équipe 1 -->
+                    <div class="col-md-4">
+                        <label asp-for="Equipe1"
+                               class="form-label fw-semibold"></label>
+                        <input asp-for="Equipe1"
+                               class="form-control shadow-sm" />
+                        <span asp-validation-for="Equipe1"
+                              class="text-danger small"></span>
+                    </div>
+
+                    <!-- Équipe 2 -->
+                    <div class="col-md-4">
+                        <label asp-for="Equipe2"
+                               class="form-label fw-semibold"></label>
+                        <input asp-for="Equipe2"
+                               class="form-control shadow-sm" />
+                        <span asp-validation-for="Equipe2"
+                              class="text-danger small"></span>
+                    </div>
+
+                        <!-- Stade -->
+                        <div class="col-md-4">
+                            <label asp-for="StadeId" class="form-label fw-semibold"></label>
+
+                            <select asp-for="StadeId"
+                                    asp-items="ViewBag.Stades"
+                                    class="form-select shadow-sm">
+                                <option value="">-- Choisir un stade --</option>
+                            </select>
+
+                            <span asp-validation-for="StadeId" class="text-danger small"></span>
+                        </div>
+                  
+
+                <!-- BUTTONS -->
+                <div class="mt-5 d-flex justify-content-end">
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary px-4 me-3">
+                        <i class="bi bi-arrow-left me-2"></i>
+                        Retour
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-dark px-4">
+                        <i class="bi bi-save me-2"></i>
+                        Mettre à jour
+                    </button>
+
+                </div>
+                    </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

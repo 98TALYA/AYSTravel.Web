@@ -1,0 +1,146 @@
+﻿@model List<AYSTravel.Data.Entities.Activite>
+
+@{
+    ViewData["Title"] = "Gestion des Activités";
+}
+
+<div class="container-fluid py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Gestion des Activités</h3>
+            <p class="text-muted mb-0">
+                Administration des activités touristiques
+            </p>
+        </div>
+
+        <a asp-action="Create" class="btn btn-dark px-4">
+            <i class="bi bi-plus-circle me-2"></i> Ajouter Activité
+        </a>
+    </div>
+
+    <!-- STATS -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <h6 class="text-muted mb-2">Total Activités</h6>
+                    <h3 class="fw-bold mb-0">@Model.Count()</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABLE CARD -->
+    <div class="card shadow-sm border-0 rounded-4">
+
+        <div class="card-body p-3">
+
+            <!-- SEARCH -->
+            <div class="mb-3">
+                <input type="text"
+                       id="searchInput"
+                       class="form-control"
+                       placeholder="Rechercher activité ou ville...">
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0"
+                       id="activiteTable">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Image</th>
+                            <th>Nom</th>
+                            <th>Type</th>
+                           
+                            <th class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            foreach (var a in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <img src="@a.ImageUrl"
+                                             width="70"
+                                             class="rounded shadow-sm" />
+                                    </td>
+
+                                    <td class="fw-semibold">
+                                        @a.Nom
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-dark">
+                                            @a.Type
+                                        </span>
+                                    </td>
+
+                                   
+
+                                    <td class="text-end pe-4">
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@a.Id"
+                                           class="btn btn-sm btn-outline-warning me-2">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-id="@a.Id"
+                                           class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5"
+                                    class="text-center py-4 text-muted">
+                                    Aucune activité enregistrée.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- SEARCH SCRIPT -->
+@section Scripts {
+    <script>
+
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+
+            let value = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#activiteTable tbody tr");
+
+            rows.forEach(row => {
+
+                row.style.display =
+                row.innerText.toLowerCase().includes(value)
+                ? ""
+                : "none";
+
+            });
+
+        });
+
+    </script>
+}

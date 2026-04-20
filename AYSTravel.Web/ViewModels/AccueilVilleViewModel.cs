@@ -4,6 +4,7 @@
     {
         public List<VilleViewModel> Villes { get; set; }
         public int NombreVilles { get; set; }
+
        
     }
 }

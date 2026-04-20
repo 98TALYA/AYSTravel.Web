@@ -1,9 +1,6 @@
 ﻿using AYSTravel.Data;
 using AYSTravel.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-
 
 namespace AYSTravel.Logic
 {
@@ -16,44 +13,77 @@ namespace AYSTravel.Logic
             _context = context;
         }
 
-        // 🔹 Récupérer tous les matchs
+        // GET ALL
         public List<Match> GetAll()
         {
             return _context.Matchs
-                .Include(m => m.Ville)
+                .Include(m => m.Stade)
+                .ThenInclude(s => s.Ville)
                 .ToList();
         }
 
-        // 🔹 Récupérer un match par Id
-        public Match GetById(int id)
+        // GET BY ID
+        public Match? GetById(int id)
         {
             return _context.Matchs
-                .Include(m => m.Ville)
+                .Include(m => m.Stade)
+                .ThenInclude(s => s.Ville)
                 .FirstOrDefault(m => m.Id == id);
         }
 
-        // 🔹 Ajouter un match
+        // ADD
         public void Add(Match match)
         {
+            match.Stade = null; // ✅ évite doublon EF
             _context.Matchs.Add(match);
-            _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception(ex.InnerException?.Message ?? ex.Message);
+            }
         }
 
-        // 🔹 Mettre à jour un match
+        // UPDATE
         public void Update(Match match)
         {
-            _context.Matchs.Update(match);
-            _context.SaveChanges();
+            var existing = _context.Matchs.FirstOrDefault(m => m.Id == match.Id);
+            if (existing != null)
+            {
+                existing.Equipe1 = match.Equipe1;
+                existing.Equipe2 = match.Equipe2;
+                existing.Date = match.Date;
+                existing.StadeId = match.StadeId;
+                existing.Stade = null; // ✅ évite doublon EF
+
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (DbUpdateException ex)
+                {
+                    throw new Exception(ex.InnerException?.Message ?? ex.Message);
+                }
+            }
         }
 
-        // 🔹 Supprimer un match
+        // DELETE
         public void Delete(int id)
         {
-            var match = GetById(id);
+            var match = _context.Matchs.FirstOrDefault(m => m.Id == id);
             if (match != null)
             {
                 _context.Matchs.Remove(match);
-                _context.SaveChanges();
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (DbUpdateException ex)
+                {
+                    throw new Exception(ex.InnerException?.Message ?? ex.Message);
+                }
             }
         }
     }

@@ -1,0 +1,143 @@
+﻿@model AYSTravel.Data.Entities.Restauration
+
+@{
+    ViewData["Title"] = "Ajouter Restaurant";
+}
+
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Ajouter un Restaurant</h3>
+            <p class="text-muted mb-0">
+                Ajouter un nouveau restaurant ou café
+            </p>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <form asp-action="Create" method="post">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="row g-4">
+
+                    <!-- Nom -->
+                    <div class="col-md-6">
+                        <label asp-for="Nom"
+                               class="form-label fw-semibold"></label>
+
+                        <input asp-for="Nom"
+                               class="form-control shadow-sm"
+                               placeholder="Nom du restaurant" />
+
+                        <span asp-validation-for="Nom"
+                              class="text-danger small"></span>
+                    </div>
+
+                    <!-- Type -->
+                    <div class="col-md-3">
+                        <label asp-for="Type"
+                               class="form-label fw-semibold"></label>
+
+                        <select asp-for="Type"
+                                class="form-select shadow-sm">
+
+                            <option value="">-- Choisir --</option>
+                            <option>Restaurant</option>
+                            <option>Café</option>
+
+                        </select>
+
+                        <span asp-validation-for="Type"
+                              class="text-danger small"></span>
+                    </div>
+
+                    <!-- Budget -->
+                    <div class="col-md-3">
+                        <label asp-for="Budget"
+                               class="form-label fw-semibold"></label>
+
+                        <select asp-for="Budget"
+                                class="form-select shadow-sm">
+
+                            <option value="">-- Choisir --</option>
+                            <option>Economique</option>
+                            <option>Moyen</option>
+                            <option>Elevé</option>
+
+                        </select>
+
+                        <span asp-validation-for="Budget"
+                              class="text-danger small"></span>
+                    </div>
+
+                    <!-- Adresse -->
+                    <div class="col-md-6">
+                        <label asp-for="Adresse"
+                               class="form-label fw-semibold"></label>
+
+                        <input asp-for="Adresse"
+                               class="form-control shadow-sm"
+                               placeholder="Adresse du restaurant" />
+
+                        <span asp-validation-for="Adresse"
+                              class="text-danger small"></span>
+                    </div>
+
+                    <!-- Image -->
+                    <div class="col-md-6">
+                        <label asp-for="ImageUrl"
+                               class="form-label fw-semibold"></label>
+
+                        <input asp-for="ImageUrl"
+                               class="form-control shadow-sm"
+                               placeholder="/image/restaurations/" />
+
+                        <span asp-validation-for="ImageUrl"
+                              class="text-danger small"></span>
+                    </div>
+
+                    <!-- Ville -->
+                    <div class="col-md-4">
+                        <label asp-for="VilleId"
+                               class="form-label fw-semibold"></label>
+
+                        <select asp-for="VilleId"
+                                class="form-select shadow-sm"
+                                asp-items="ViewBag.Villes">
+                        </select>
+
+                        <span asp-validation-for="VilleId"
+                              class="text-danger small"></span>
+                    </div>
+
+                </div>
+
+                <hr class="my-4" />
+
+                <div class="d-flex justify-content-end">
+
+                    <a asp-action="Index"
+                       class="btn btn-light me-2">
+                        Annuler
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-dark px-4">
+                        Enregistrer
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

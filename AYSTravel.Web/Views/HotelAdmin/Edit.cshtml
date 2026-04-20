@@ -1,0 +1,74 @@
+﻿@model AYSTravel.Logic.Models.Hotel
+
+<div class="container-fluid py-4">
+
+    <h3 class="fw-bold mb-4">Ajouter Hotel</h3>
+
+    <div class="card shadow-sm rounded-4">
+
+        <div class="card-body">
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+            <form asp-action="Edit" method="post">
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label>Nom</label>
+                        <input asp-for="Nom" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Image</label>
+                        <input asp-for="ImageUrl" class="form-control" />
+                    </div>
+
+                    <div class="col-md-12">
+                        <label>Description</label>
+<textarea asp-for="Description" class="form-control"></textarea>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Note</label>
+                        <input asp-for="Note" class="form-control" />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Booking URL</label>
+                        <input asp-for="BookingUrl" class="form-control" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Population</label>
+                        <input asp-for="Population" class="form-control" />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Ville</label>
+
+                        <select asp-for="VilleId"
+                                asp-items="ViewBag.Villes"
+                                class="form-select">
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <button class="btn btn-dark">
+                    Enregistrer
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-light">
+                    Annuler
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

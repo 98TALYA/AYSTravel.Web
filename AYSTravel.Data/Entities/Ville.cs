@@ -13,20 +13,20 @@ namespace AYSTravel.Data.Entities
     {
         public int Id { get; set; }
 
-        [Required]
+        
         public string Nom { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-       public string ImageUrl { get; set; }
-       
+        // ✅ nullable
+        public string? ImageUrl { get; set; }
 
-
-        public List<Restauration> Restaurations { get; set; }
-        public List<Monument> Monuments { get; set; }
-        public List<Match> Matchs { get; set; }
-        public List<Activite> Activites { get; set; }
-        public List<MoyenTransport> MoyensTransports { get; set; }
-        public List<Hotel> Hotels { get; set; }
+        // ✅ initialiser les listes
+        public List<Restauration> Restaurations { get; set; } = new();
+        public List<Monument> Monuments { get; set; } = new();
+        public List<Stade> Stades { get; set; } = new();
+        public List<Activite> Activites { get; set; } = new();
+        public List<MoyenTransport> MoyensTransports { get; set; } = new();
+        public List<Hotel> Hotels { get; set; } = new();
     }
 }

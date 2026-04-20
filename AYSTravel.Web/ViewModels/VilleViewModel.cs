@@ -6,12 +6,11 @@ public class VilleViewModel
     public int Id { get; set; }
     public string Nom { get; set; }
     public string Description { get; set; }
-    [Url]
+    public string Ville { get; set; }
+
     public string ImageUrl { get; set; }
-    public int Population { get; set; }
-
     
-
+    public int Population { get; set; }
     public int NombreMonuments { get; set; }
     public int NombreActivites { get; set; }
     public int NombreRestaurations { get; set; }
@@ -23,7 +22,7 @@ public class VilleViewModel
     public List<ActiviteViewModel> Activites { get; set; }
     public List<MoyenTransportViewModel> MoyensTransports { get; set; }
     public List<MatchViewModel> Matchs { get; set; }
-
+    
     public List<VilleViewModel> VillesSimilaires { get; set; }
     public List<HotelViewModel> Hotels { get; set; } = new List<HotelViewModel>();
 }

@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace AYSTravel.Logic
 {
+
     public class MonumentManager
     {
         private readonly ApplicationDbContext _context;
@@ -23,6 +24,12 @@ namespace AYSTravel.Logic
         public void Add(Monument monument)
         {
             _context.Monuments.Add(monument);
+            _context.SaveChanges();
+        }
+
+        public void Update(Monument monument)
+        {
+            _context.Monuments.Update(monument);
             _context.SaveChanges();
         }
 

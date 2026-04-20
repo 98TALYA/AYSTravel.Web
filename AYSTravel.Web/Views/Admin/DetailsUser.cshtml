@@ -1,50 +1,98 @@
 ﻿@model Microsoft.AspNetCore.Identity.IdentityUser
 
 @{
-    ViewData["Title"] = "Détails de l'utilisateur";
+    ViewData["Title"] = "Détails utilisateur";
 }
 
-<div class="container-fluid py-4">
-    <h1 class="mb-4 text-warning fw-bold">👤 Détails de l'utilisateur</h1>
+<div class="container py-5">
 
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card auth-card p-4">
-                <div class="card-body">
-                    <!-- Nom d'utilisateur -->
-                    <div class="mb-3">
-                        <label class="fw-semibold text-white">Nom d'utilisateur :</label>
-                        <p class="form-control auth-input" style="background: #1f2937;">@Model.UserName</p>
-                    </div>
+    <div class="card shadow border-0 rounded-4 mx-auto" style="max-width:700px;">
 
-                    <!-- Email -->
-                    <div class="mb-3">
-                        <label class="fw-semibold text-white">Email :</label>
-                        <p class="form-control auth-input" style="background: #1f2937;">@Model.Email</p>
-                    </div>
+        <div class="card-body p-4">
 
-                    <!-- Email confirmé -->
-                    <div class="mb-3">
-                        <label class="fw-semibold text-white">Email confirmé :</label>
-                        <p class="form-control auth-input" style="background: #1f2937;">
-                            @(Model.EmailConfirmed ? "✔️ Oui" : "❌ Non")
-                        </p>
-                    </div>
+            <!-- HEADER -->
+            <div class="text-center mb-4">
 
-                    <!-- Date de création / Id utilisateur -->
-                    <div class="mb-3">
-                        <label class="fw-semibold text-white">ID utilisateur :</label>
-                        <p class="form-control auth-input" style="background: #1f2937;">@Model.Id</p>
-                    </div>
+                <div class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center mx-auto mb-3"
+                     style="width:80px;height:80px;font-size:2rem;">
+                    @Model.UserName.Substring(0, 1).ToUpper()
+                </div>
 
-                    <!-- Bouton retour -->
-                    <div class="mt-4">
-                        <a asp-controller="Admin" asp-action="Users" class="btn btn-gold fw-bold">
-                            🔙 Retour aux utilisateurs
-                        </a>
+                <h3 class="fw-bold mb-1">@Model.UserName</h3>
+
+                <p class="text-muted mb-0">
+                    Détails du compte utilisateur
+                </p>
+            </div>
+
+            <hr />
+
+            <!-- INFOS GRID -->
+            <div class="row g-3">
+
+                <!-- EMAIL -->
+                <div class="col-md-6">
+                    <div class="p-3 bg-light rounded-3 h-100">
+                        <small class="text-muted d-block">Email</small>
+                        <span class="fw-semibold">@Model.Email</span>
                     </div>
                 </div>
+
+                <!-- STATUS -->
+                @if (!Model.EmailConfirmed)
+                {
+                    <form asp-action="ConfirmEmailAdmin" method="post" class="mt-3">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.Id" />
+
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle me-2"></i>
+                            Confirmer l'email
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <div class="mt-3">
+                        <span class="badge bg-success px-3 py-2">
+                            ✔ Email déjà confirmé
+                        </span>
+                    </div>
+                }
+
+                <!-- ID -->
+                <div class="col-12">
+                    <div class="p-3 bg-light rounded-3">
+                        <small class="text-muted d-block">ID Utilisateur</small>
+                        <span class="text-muted small">@Model.Id</span>
+                    </div>
+                </div>
+
             </div>
+
+            <!-- ACTIONS -->
+            <div class="d-flex justify-content-between mt-4">
+
+                <a asp-action="Users"
+                   class="btn btn-outline-secondary px-4">
+                    <i class="bi bi-arrow-left me-2"></i>
+                    Retour
+                </a>
+
+                <div>
+
+                    <a asp-action="DeleteUser"
+                       asp-route-id="@Model.Id"
+                       class="btn btn-outline-danger me-2">
+                        <i class="bi bi-trash me-1"></i>
+                        Supprimer
+                    </a>
+
+                </div>
+
+            </div>
+
         </div>
     </div>
+
 </div>

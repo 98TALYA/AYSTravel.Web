@@ -274,23 +274,21 @@ AUTH SECTION
 }
 /* HERO OFFICIEL */
 
-.official-hero {
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: white;
-    padding: 100px 0;
-    text-transform: uppercase;
+ text-transform: uppercase;
 }
 
-    .official-hero h1 {
-        font-size: 48px;
-        font-weight: 800;
-        letter-spacing: 3px;
-    }
+.official-hero h1 {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    animation: fadeUp 1s ease;
+}
 
-    .official-hero p {
-        font-size: 18px;
-        color: #cbd5e1;
-    }
+.official-hero p {
+    font-size: 18px;
+    color: #cbd5e1;
+    animation: fadeUp 1s ease;
+}
 
 /* CARD STYLE */
 
@@ -447,7 +445,7 @@ AUTH SECTION
 
 /* ===== HIGHLIGHT BOX ===== */
 .highlight-box {
-    background: #fff;
+    background: #dee2e6;
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.08);
@@ -457,6 +455,7 @@ AUTH SECTION
     .highlight-box h3 {
         font-weight: 800;
         margin-bottom: 20px;
+        text-align:center;
     }
 
 /* ===== MODERN CARD ===== */
@@ -482,23 +481,6 @@ AUTH SECTION
     padding: 20px;
 }
 
-/* ===== MATCH CARD ===== */
-.match-card {
-    background: linear-gradient(135deg,#0f2027,#1e293b);
-    color: white;
-    padding: 25px;
-    border-radius: 20px;
-    transition: 0.3s;
-}
-
-    .match-card:hover {
-        transform: scale(1.03);
-    }
-
-    .match-card span {
-        color: #fcbf49;
-        font-weight: bold;
-    }
 
 /* ===== HOTEL CARD ===== */
 .hotel-card {
@@ -599,3 +581,1329 @@ AUTH SECTION
         background: linear-gradient(45deg,#0071c2,#003580);
         transform: scale(1.05);
     }
+.dashboard-card {
+    background: #111827;
+    color: white;
+    padding: 25px;
+    border-radius: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        background: #1f2937;
+    }
+
+    .dashboard-card i {
+        font-size: 28px;
+        opacity: 0.8;
+    }
+
+    .dashboard-card h3 {
+        font-weight: 700;
+        margin: 0;
+    }
+
+.card-title {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-bottom: 5px;
+}
+
+/* Gestion cards */
+
+.manage-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    color: #111;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+    .manage-card:hover {
+        background: #111827;
+        color: white;
+        transform: translateY(-5px);
+    }
+
+    .manage-card i {
+        font-size: 28px;
+        display: block;
+        margin-bottom: 10px;
+    }
+    .table-hover tbody tr:hover {
+    background-color: #f9fafb;
+    transition: 0.2s ease;
+}
+
+.card {
+    border-radius: 20px;
+}
+
+.badge {
+    font-weight: 500;
+    padding: 6px 10px;
+}
+.form-control:focus,
+.form-select:focus {
+    box-shadow: 0 0 0 0.15rem rgba(0,0,0,0.1);
+    border-color: #000;
+}
+/* Gradient title */
+.text-gradient {
+    background: linear-gradient(45deg, #d4af37, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* ================= HERO SECTION ================= */
+
+.hero-section {
+    height: 65vh;
+    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)), url('/image/culture.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    border-radius: 0 0 40px 40px;
+    overflow: hidden;
+}
+
+    /* Hero text */
+
+    .hero-section h1 {
+        font-size: 55px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .hero-section p {
+        font-size: 20px;
+        opacity: 0.9;
+    }
+
+    /* animation */
+
+    .hero-section h1,
+    .hero-section p {
+        animation: fadeUp 1s ease;
+    }
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ================= MONUMENT CARD ================= */
+
+.monument-card {
+    overflow: hidden;
+    background: white;
+    transition: all 0.4s ease;
+    animation: fadeUp 0.8s ease;
+}
+
+    /* Hover */
+
+    .monument-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 30px 45px rgba(0,0,0,0.18);
+    }
+
+    /* Image */
+
+    .monument-card img {
+        width: 100%;
+        
+    }
+
+    .monument-card:hover img {
+        transform: scale(1.08);
+    }
+
+    /* Card Body */
+
+    .monument-card .card-body {
+        padding: 20px;
+    }
+
+    .monument-card h5 {
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .monument-card p {
+        color: #666;
+        font-size: 14px;
+    }
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width:768px) {
+
+    .hero-section {
+        height: 45vh;
+    }
+
+        .hero-section h1 {
+            font-size: 35px;
+        }
+}
+
+
+/* ================= MATCH HERO ================= */
+
+.match-hero {
+    height: 65vh;
+    background: linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.85)), url('/image/monde.png') center/cover no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-white);
+    border-radius: 0 0 40px 40px;
+}
+
+    .match-hero h1 {
+        font-size: 52px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        animation: fadeUp 1s ease;
+    }
+
+    .match-hero p {
+        font-size: 18px;
+        opacity: .9;
+        animation: fadeUp 1.2s ease;
+    }
+/* ================= CARD ================= */
+
+.match-card {
+    border-radius: 22px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0f2027, #203a43);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.4s ease;
+    padding: 15px;
+}
+
+    .match-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 30px 55px rgba(0,0,0,0.2);
+    }
+
+    /* ================= IMAGE ================= */
+
+    .match-card img {
+        
+       
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .match-card:hover img {
+        transform: scale(1.08);
+    }
+
+    /* ================= BODY ================= */
+
+    .match-card .card-body {
+        padding: 25px;
+        color: white;
+        text-align:center:
+    }
+
+    /* ================= TEAMS ================= */
+
+    .match-card strong {
+        font-weight: 700;
+    }
+
+/* ================= FLAGS ================= */
+
+.team {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+    padding: 10px 18px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+    .team:hover {
+        background: rgba(255,255,255,0.18);
+    }
+
+/* ================= COUNTDOWN ================= */
+
+.countdown {
+    font-weight: 700;
+    font-size: 18px;
+    color: #f77f00;
+}
+
+/* ================= BUTTON ================= */
+
+.match-card .btn {
+    display: inline-block;
+     
+    color: white;
+    padding: 10px 22px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+    .match-card .btn:hover {
+        background: #ffc107;
+        color: black;
+        transform: scale(1.05);
+    }
+
+/* ================= ANIMATION ================= */
+
+.match-card {
+    animation: fadeUp 0.8s ease;
+    color:white;
+    text-align:center;
+}
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width:768px) {
+
+    .match-hero {
+        height: 45vh;
+    }
+
+        .match-hero h1 {
+            font-size: 32px;
+        }
+}
+
+/* ================= HERO ================= */
+
+.official-hero {
+    height: 65vh;
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url('/image/maroc.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 100px 20px;
+    text-transform: uppercase;
+    border-radius: 0 0 40px 40px;
+}
+
+    .official-hero h1 {
+        font-size: 50px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        animation: fadeUp 1s ease;
+    }
+
+    .official-hero p {
+        font-size: 18px;
+        opacity: 0.9;
+    }
+
+/* ================= CARD ================= */
+
+.ville-card {
+    border-radius: 22px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.4s ease;
+}
+
+    .ville-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 30px 55px rgba(0,0,0,0.2);
+    }
+
+/* ================= IMAGE ================= */
+
+.ville-img {
+    height: 230px;
+    overflow: hidden;
+}
+
+    .ville-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+.ville-card:hover img {
+    transform: scale(1.08);
+}
+
+/* ================= BODY ================= */
+
+.ville-body {
+    padding: 25px;
+}
+
+    .ville-body h4 {
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+/* ================= DESCRIPTION ================= */
+
+.ville-desc {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ================= STATS ================= */
+
+.ville-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+}
+
+    .ville-stats div {
+        text-align: center;
+        flex: 1;
+    }
+
+.number {
+    font-size: 20px;
+    font-weight: 700;
+    color: #f77f00;
+    display: block;
+}
+
+.label {
+    font-size: 13px;
+    color: #777;
+}
+
+/* ================= BUTTON ================= */
+
+.btn-ville {
+    display: inline-block;
+    background: #000000;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+    .btn-ville:hover {
+        background: #fcbf49;
+        color: black;
+        transform: scale(1.05);
+    }
+
+/* ================= ANIMATION ================= */
+
+.ville-card {
+    animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width:768px) {
+
+    .official-hero {
+        height: 45vh;
+    }
+
+        .official-hero h1 {
+            font-size: 32px;
+        }
+
+    .ville-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* ===== TITRE VILLE ===== */
+
+.city-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #222;
+}
+
+.city-subtitle {
+    font-size: 18px;
+    color: #666;
+    max-width: 700px;
+    margin: auto;
+}
+
+.city-meta span {
+    background: #f2f2f2;
+    padding: 8px 14px;
+    border-radius: 20px;
+    margin: 5px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+/* ===== IMAGE CARD ===== */
+
+.card img {
+    transition: transform 0.4s ease;
+}
+
+.card:hover img {
+    transform: scale(1.05);
+}
+
+/* ===== INFO CARD ===== */
+
+
+
+.section-heading {
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+    .info-item span {
+        font-weight: 500;
+    }
+
+    .info-item strong {
+        font-size: 16px;
+        color: #ffd700;
+    }
+
+    .info-item a {
+        font-size: 14px;
+        text-decoration: none;
+        color: #000000;
+    }
+
+/* ===== POURQUOI VISITER ===== */
+
+.highlight-box {
+    background: linear-gradient(135deg, #000, #203a43);
+    color: white;
+    padding: 35px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+    .highlight-box h3 {
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+/* ===== CARTES GENERALES ===== */
+
+.modern-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+    .modern-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 18px 35px rgba(0,0,0,0.15);
+    }
+
+    .modern-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+.modern-card-body {
+    padding: 20px;
+}
+
+    .modern-card-body h5 {
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .modern-card-body p {
+        color: #666;
+        font-size: 14px;
+    }
+
+
+
+/* ===== HOTEL CARD ===== */
+
+.hotel-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+    .hotel-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 18px 35px rgba(0,0,0,0.15);
+    }
+
+.hotel-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.hotel-body {
+    padding: 20px;
+}
+
+    .hotel-body h5 {
+        font-weight: 700;
+    }
+
+    .hotel-body p {
+        color: #777;
+    }
+
+.btn-booking {
+    display: inline-block;
+    margin-top: 10px;
+    background: rgba(0,0,0,0.65);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+    .btn-booking:hover {
+        background: #e96d00;
+    }
+/* ================= FOOD HERO ================= */
+
+.food-hero {
+    height: 60vh;
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url('/image/pm.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    border-radius: 0 0 40px 40px;
+    
+}
+
+    .food-hero h1 {
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        animation: fadeUp 1s ease;
+    }
+
+    .food-hero p {
+        font-size: 18px;
+        opacity: 0.9;
+        animation: fadeUp 1s ease;
+    }
+
+
+/* ================= RESTAURANT CARD ================= */
+
+.resto-card {
+    border-radius: 22px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+}
+
+    .resto-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 30px 50px rgba(0,0,0,0.25);
+    }
+
+
+    /* ================= IMAGE ================= */
+
+    .resto-card img {
+        height: 230px;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .resto-card:hover img {
+        transform: scale(1.08);
+    }
+
+
+    /* ================= BODY ================= */
+
+    .resto-card .card-body {
+        padding: 22px;
+    }
+
+    .resto-card h5 {
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .resto-card p {
+        font-size: 14px;
+        color: #666;
+    }
+
+
+/* ================= RATING ================= */
+
+.resto-rating {
+    background: #fcbf49;
+    color: #000;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+
+/* ================= BUTTON ================= */
+
+.btn-resto {
+    display: inline-block;
+    margin-top: 10px;
+    background: #000;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+    .btn-resto:hover {
+        background: #fcbf49;
+        color: black;
+        transform: scale(1.05);
+    }
+
+
+/* ================= ANIMATION ================= */
+
+.resto-card {
+    animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width:768px) {
+
+    .food-hero {
+        height: 45vh;
+    }
+
+        .food-hero h1 {
+            font-size: 32px;
+        }
+}
+
+/* MAP CARD */
+
+.map-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+    .map-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+/* TITLE */
+
+.map-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+/* MAP */
+
+.map-wrapper iframe {
+    width: 100%;
+    height: 220px;
+    border: none;
+    border-radius: 15px;
+}
+
+/* BUTTON */
+
+.btn-map {
+    background: linear-gradient(45deg,#d4af37,#ffd700);
+    border: none;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-weight: 600;
+    color: black;
+}
+
+    .btn-map:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(212,175,55,0.4);
+    }
+
+/* HERO SECTION */
+
+.hero-travel{
+    position: relative;
+    min-height: 100vh;
+    background: url('/image/travel.png') center/cover no-repeat;
+    display:flex;
+    align-items:center;
+
+}
+
+/* overlay sombre */
+
+.hero-travel .overlay{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:linear-gradient(
+        rgba(0,0,0,0.7),
+        rgba(0,0,0,0.4)
+    );
+}
+
+/* contenu */
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+/* CARD */
+
+.role-card{
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    border-radius:20px;
+    padding:40px 25px;
+    text-align:center;
+    color:white;
+    transition: all 0.4s ease;
+    border:1px solid rgba(255,255,255,0.2);
+}
+
+/* hover animation */
+
+.role-card:hover{
+    transform: translateY(-10px) scale(1.03);
+    background: rgba(255,255,255,0.2);
+}
+
+/* ICON */
+
+.role-icon{
+    font-size:50px;
+    margin-bottom:15px;
+}
+
+/* BUTTON */
+
+.role-btn{
+    margin-top:15px;
+    padding:10px 25px;
+    border-radius:30px;
+    background:#ff7a18;
+    border:none;
+    color:white;
+    font-weight:600;
+    transition: all 0.3s ease;
+}
+
+/* bouton hover */
+
+.role-btn:hover{
+    background:#ff9f43;
+    transform:scale(1.05);
+}
+
+
+/* ===== BACKGROUND PPROFILE ===== */
+/* ===== BACKGROUND ===== */
+.profile-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== CARD ===== */
+.profile-card {
+    width: 100%;
+    max-width: 450px;
+    padding: 35px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    color: white;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    animation: fadeUp 0.6s ease;
+}
+
+/* ===== HEADER ===== */
+.profile-header h2 {
+    margin-bottom: 5px;
+}
+
+.profile-header p {
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* ===== AVATAR ===== */
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg,#d4af37,#ffd700);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 15px;
+    font-size: 32px;
+    color: black;
+    box-shadow: 0 0 20px rgba(212,175,55,0.5);
+}
+
+/* ===== INPUT ===== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        font-size: 13px;
+        margin-bottom: 5px;
+        display: block;
+        color: #ccc;
+    }
+
+.input-icon {
+    position: relative;
+}
+
+    .input-icon i {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        transform: translateY(-50%);
+        color: #aaa;
+    }
+
+    .input-icon input {
+        padding-left: 35px;
+        border-radius: 12px;
+        border: none;
+        background: rgba(255,255,255,0.08);
+        color: white;
+        transition: 0.3s;
+    }
+
+        .input-icon input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(212,175,55,0.4);
+            background: rgba(255,255,255,0.12);
+        }
+
+/* ===== BUTTON ===== */
+.btn-save {
+    background: linear-gradient(45deg,#d4af37,#ffd700);
+    border: none;
+    border-radius: 30px;
+    padding: 12px;
+    font-weight: bold;
+    color: black;
+    transition: 0.3s;
+}
+
+    .btn-save:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(212,175,55,0.4);
+    }
+
+/* ===== LINK ===== */
+.change-link {
+    color: #ffd700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+    .change-link:hover {
+        text-decoration: underline;
+    }
+
+/* ===== ANIMATION ===== */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+    /*/////motpass nbdlo///*/
+/* ===== BACKGROUND ===== */
+.auth-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== CARD ===== */
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+    /* ===== HEADER ===== */
+    .auth-card h2 {
+        font-weight: 700;
+    }
+
+    .auth-card p {
+        color: #bbb;
+        font-size: 14px;
+    }
+
+/* ===== ICON ===== */
+.auth-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(45deg,#d4af37,#ffd700);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: auto;
+    color: black;
+}
+
+/* ===== INPUT ===== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.input-icon {
+    position: relative;
+}
+
+    .input-icon i {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+    }
+
+    .input-icon input {
+        width: 100%;
+        padding: 10px 10px 10px 40px;
+        border-radius: 12px;
+        border: none;
+        background: rgba(255,255,255,0.1);
+        color: white;
+    }
+
+        .input-icon input:focus {
+            outline: none;
+            border: 1px solid #ffd700;
+        }
+
+/* ===== BUTTON ===== */
+.btn-gold {
+    background: linear-gradient(45deg,#d4af37,#ffd700);
+    border: none;
+    border-radius: 30px;
+    padding: 12px;
+    font-weight: 700;
+    color: black;
+    transition: 0.3s;
+}
+
+    .btn-gold:hover {
+        transform: scale(1.04);
+        box-shadow: 0 10px 25px rgba(212,175,55,0.4);
+    }
+
+/* ===== BACKGROUND ===== */
+.auth-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== CARD ===== */
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+/* ===== ICON ===== */
+.auth-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(45deg,#d4af37,#ffd700);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: auto;
+    color: black;
+}
+
+/* ===== TEXT ===== */
+.auth-card h2 {
+    font-weight: 700;
+}
+
+.auth-card p {
+    color: #bbb;
+    font-size: 14px;
+}
+
+/* ===== INPUT ===== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.input-icon {
+    position: relative;
+}
+
+    .input-icon i {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+    }
+
+    .input-icon input {
+        width: 100%;
+        padding: 10px 10px 10px 40px;
+        border-radius: 12px;
+        border: none;
+        background: rgba(255,255,255,0.1);
+        color: white;
+    }
+
+        .input-icon input:focus {
+            outline: none;
+            border: 1px solid #ffd700;
+        }
+
+/* ===== BUTTON ===== */
+.btn-gold {
+    background: linear-gradient(45deg,#d4af37,#ffd700);
+    border: none;
+    border-radius: 30px;
+    padding: 12px;
+    font-weight: 700;
+    color: black;
+    transition: 0.3s;
+}
+
+    .btn-gold:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(212,175,55,0.4);
+    }
+/* ===== BACKGROUND ===== */
+.auth-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== CARD ===== */
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    color: white;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+/* ===== SUCCESS ICON ===== */
+.success-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg,#00c851,#00ff88);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    font-size: 32px;
+    color: white;
+    box-shadow: 0 0 25px rgba(0,255,150,0.5);
+    animation: pop 0.6s ease;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ===== TEXT ===== */
+.auth-card p {
+    color: #ccc;
+    font-size: 14px;
+}
+
+/* ===== BUTTON ===== */
+.btn-gold {
+    background: linear-gradient(45deg,#d4af37,#ffd700);
+    border: none;
+    border-radius: 30px;
+    padding: 12px;
+    font-weight: bold;
+    color: black;
+    transition: 0.3s;
+}
+
+    .btn-gold:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(212,175,55,0.4);
+    }
+

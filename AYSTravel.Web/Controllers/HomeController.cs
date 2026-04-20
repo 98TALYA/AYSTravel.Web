@@ -17,6 +17,8 @@ namespace AYSTravel.Web.Controllers
         {
             return View();
         }
+       
+
 
         public IActionResult Privacy()
         {
