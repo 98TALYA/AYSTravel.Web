@@ -1,87 +1,77 @@
 ﻿@model AYSTravel.Web.ViewModels.RestaurationViewModel
-
 @{
     ViewData["Title"] = "Détails Restaurant";
+    var mapsQuery = Uri.EscapeDataString(Model.Adresse ?? Model.Nom ?? "Maroc");
+    var mapsUrl = $"https://www.google.com/maps?q={mapsQuery}&output=embed";
+    var mapsUrlExt = $"https://www.google.com/maps?q={mapsQuery}";
 }
 
 <section class="container py-5">
-
     <div class="row g-5 align-items-center">
 
         <!-- IMAGE RESTAURANT -->
         <div class="col-lg-6">
-
-            <img src="@Url.Content(string.IsNullOrEmpty(Model.ImageUrl)
-                         ? "~/image/default.png"
-                         : "~/image/restaurations/" + Model.ImageUrl)"
-                 class="img-fluid rounded shadow-lg"
+            <img src="~/image/restaurations/"
+                 
                  alt="@Model.Nom" />
-
         </div>
 
         <!-- INFORMATIONS RESTAURANT -->
         <div class="col-lg-6">
-
             <h2 class="fw-bold">@Model.Nom</h2>
 
-            <span class="badge bg-dark mb-3">
-                🍽 @Model.Type
-            </span>
+            @if (!string.IsNullOrEmpty(Model.Type))
+            {
+                <span class="badge bg-dark mb-3">🍽 @Model.Type</span>
+            }
 
-            <p class="fs-5">
-                📍 <strong>Adresse :</strong> @Model.Adresse
-            </p>
+            @if (!string.IsNullOrEmpty(Model.Adresse))
+            {
+                <p class="fs-5">📍 <strong>Adresse :</strong> @Model.Adresse</p>
+            }
 
-            <p class="fs-5">
-                💰 <strong>Budget :</strong> @Model.Budget
-            </p>
+            @if (!string.IsNullOrEmpty(Model.Budget))
+            {
+                <p class="fs-5">💰 <strong>Budget :</strong> @Model.Budget</p>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.Description))
+            {
+                <p class="fs-5">@Model.Description</p>
+            }
 
             <div class="mt-4">
-                <a asp-action="Index" class="btn btn-dark me-2">
-                    ← Retour
-                </a>
+                <a asp-action="Index" class="btn btn-dark me-2">← Retour</a>
             </div>
-
         </div>
-
     </div>
-
 
     <!-- LOCALISATION -->
-    <div class="row mt-5">
-
-        <div class="col-lg-5">
-
-            <div class="map-card">
-
-                <div class="map-title">
-                    📍 Localisation du restaurant
+    @if (!string.IsNullOrEmpty(Model.Adresse))
+    {
+        <div class="row mt-5">
+            <div class="col-lg-5">
+                <div class="map-card">
+                    <div class="map-title">📍 Localisation du restaurant</div>
+                    <div class="map-wrapper">
+                        <iframe src="@mapsUrl"
+                                width="100%"
+                                height="300"
+                                style="border:0; border-radius:16px;"
+                                allowfullscreen
+                                loading="lazy">
+                        </iframe>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="@mapsUrlExt"
+                           target="_blank"
+                           class="btn btn-map">
+                            Ouvrir dans Google Maps
+                        </a>
+                    </div>
                 </div>
-
-                <div class="map-wrapper">
-
-                    <iframe src="https://www.google.com/maps?q=@Model.Adresse&output=embed"
-                            loading="lazy">
-                    </iframe>
-
-                </div>
-
-                <div class="text-center mt-3">
-
-                    <a href="https://www.google.com/maps?q=@Model.Adresse"
-                       target="_blank"
-                       class="btn btn-map">
-
-                        Ouvrir dans Google Maps
-
-                    </a>
-
-                </div>
-
             </div>
-
         </div>
-
-    </div>
+    }
 
 </section>

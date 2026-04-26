@@ -24,7 +24,8 @@ namespace AYSTravel.Data.Entities
 
         public string HeureArrivee { get; set; }
 
-        public decimal Tarif { get; set; }
+        public string Tarif { get; set; }
+         public string VilleNom { get; set; }
 
 
 

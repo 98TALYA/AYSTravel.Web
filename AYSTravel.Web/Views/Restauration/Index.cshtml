@@ -1,5 +1,5 @@
-﻿@model IEnumerable<AYSTravel.Web.ViewModels.RestaurationViewModel>
-
+﻿@using AYSTravel.Data.Entities
+@model IEnumerable<AYSTravel.Web.ViewModels.RestaurationViewModel>
 @{
     ViewData["Title"] = "Restaurants & Cafés";
 }
@@ -13,46 +13,103 @@
 
 <section class="container py-5">
 
-    <div class="row g-4">
-
-        @foreach (var item in Model)
-        {
-            <div class="col-lg-4 col-md-6">
-
-                <div class="resto-card">
-
-                    <img src="@(string.IsNullOrEmpty(item.ImageUrl)
-                                    ? "/image/default-restaurations.png": "" + item.ImageUrl)" />
-                                                             
-                    <div class="card-body">
-
-                        <span class="resto-rating">
-                            🍽 @item.Type
-                        </span>
-
-                        <h5>@item.Nom</h5>
-
-                        <p>
-                            📍 @item.Adresse
-                        </p>
-
-                        <p>
-                            💰 Budget : <strong>@item.Budget</strong>
-                        </p>
-
-                        <a asp-action="Details"
-                           asp-route-id="@item.Id"
-                           class="btn-resto">
-                            Voir détails
-                        </a>
-
+    <!-- ===== RESTAURANTS BASE DE DONNÉES ===== -->
+    @if (Model.Any())
+    {
+        <h3 class="text-warning fw-bold mb-4">🍽 Nos Restaurants & Cafés</h3>
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="resto-card">
+                        <img src="@item.ImageUrl"
+                     alt="@item.Nom" />
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(item.Type))
+                            {
+                                <span class="resto-rating">🍽 @item.Type</span>
+                            }
+                            <h5>@item.Nom</h5>
+                            @if (!string.IsNullOrEmpty(item.Adresse))
+                            {
+                                <p>📍 @item.Adresse</p>
+                            }
+                            @if (!string.IsNullOrEmpty(item.Budget))
+                            {
+                                <p>💰 Budget : <strong>@item.Budget</strong></p>
+                            }
+                            <a asp-action="Details"
+                               asp-route-id="@item.Id"
+                               class="btn-resto">
+                                Voir détails
+                            </a>
+                        </div>
                     </div>
-
                 </div>
+            }
+        </div>
+    }
 
-            </div>
-        }
+    <!-- ===== RESTAURANTS FOURSQUARE API ===== -->
+    @if (ViewBag.RestosApi != null)
+    {
+        <h3 class="text-warning fw-bold mt-5 mb-4">🌍 Restaurants à proximité</h3>
+        <div class="row g-4">
+            @foreach (var resto in ViewBag.RestosApi)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="resto-card">
+                        <img src="@resto.PhotoUrl" alt="@resto.Nom" />
+                        <div class="card-body">
+                            <span class="resto-rating">🍴 @resto.Categorie</span>
+                            <h5>@resto.Nom</h5>
+                            <p>📍 @resto.Adresse</p>
+                            @if (resto.Note > 0)
+                            {
+                                <p>⭐ @resto.Note / 10</p>
+                            }
+                            @if (!string.IsNullOrEmpty(resto.Website))
+                            {
+                                <a href="@resto.Website" target="_blank" class="btn-resto">
+                                    Voir le site
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
 
-    </div>
+    <!-- ===== CAFÉS FOURSQUARE API ===== -->
+    @if (ViewBag.CafesApi != null)
+    {
+        <h3 class="text-warning fw-bold mt-5 mb-4">☕ Cafés à proximité</h3>
+        <div class="row g-4">
+            @foreach (var cafe in ViewBag.CafesApi)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="resto-card">
+                        <img src="@cafe.PhotoUrl" alt="@cafe.Nom" />
+                        <div class="card-body">
+                            <span class="resto-rating">☕ Café</span>
+                            <h5>@cafe.Nom</h5>
+                            <p>📍 @cafe.Adresse</p>
+                            @if (cafe.Note > 0)
+                            {
+                                <p>⭐ @cafe.Note / 10</p>
+                            }
+                            @if (!string.IsNullOrEmpty(cafe.Website))
+                            {
+                                <a href="@cafe.Website" target="_blank" class="btn-resto">
+                                    Voir le site
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
 
 </section>

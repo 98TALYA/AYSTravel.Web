@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using AYSTravel.Data.Entities;
 using AYSTravel.Logic;
+using AYSTravel.Web.Services;
 using AYSTravel.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,12 @@ namespace AYSTravel.Web.Controllers
     public class VilleController : Controller
     {
         private readonly VilleManager _villeManager;
+        private readonly ApiService _apiService;
 
-        public VilleController(VilleManager manager)
+        public VilleController(VilleManager manager, ApiService apiService)
         {
             _villeManager = manager;
+            _apiService = apiService;
         }
 
         public IActionResult Index()
@@ -22,14 +25,17 @@ namespace AYSTravel.Web.Controllers
             return View(GetListForIndex());
         }
 
-        public IActionResult DetailsVille(int id)
+        public async Task<IActionResult> DetailsVilleAsync(int id)
         {
             var vvm = GetVilleForDetails(id);
             if (vvm == null)
             {
                 return NotFound();
             }
+            var weather = await _apiService.GetWeather(vvm.Nom);
+            ViewBag.Weather = weather;
             return View(vvm);
+
         }
 
         private VilleViewModel GetVilleForDetails(int id)
@@ -40,6 +46,7 @@ namespace AYSTravel.Web.Controllers
             var vvm = new VilleViewModel
             {
                 Id = ville.Id,
+                Nom = ville.Nom,
                 Description = ville.Description,
                 ImageUrl = ville.ImageUrl,
                 NombreMonuments = ville.Monuments?.Count ?? 0,
@@ -115,6 +122,7 @@ namespace AYSTravel.Web.Controllers
             {
                 Id = v.Id,
                 Nom = v.Nom,
+
                 Description = v.Description,
                 ImageUrl = v.ImageUrl,
                 NombreMonuments = v.Monuments?.Count ?? 0,

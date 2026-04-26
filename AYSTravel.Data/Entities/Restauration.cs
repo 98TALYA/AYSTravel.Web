@@ -17,9 +17,13 @@ namespace AYSTravel.Data.Entities
 
         public string Type { get; set; } // Restaurant ou Café
 
+        public string VilleNom { get; set; }
+
         public string Adresse { get; set; }
 
         public string Budget { get; set; } // Economique, Moyen, Elevé
+
+        public string Description { get; set; }
 
         public string ImageUrl { get; set; }
 

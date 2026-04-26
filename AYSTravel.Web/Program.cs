@@ -1,5 +1,6 @@
 using AYSTravel.Data;
 using AYSTravel.Logic;
+using AYSTravel.Web.Controllers;
 using AYSTravel.Web.Data;
 using AYSTravel.Web.Services;
 using Microsoft.AspNetCore.Identity;
@@ -48,6 +49,10 @@ builder.Services.AddScoped<MoyenTransportManager>();
 builder.Services.AddScoped<VilleManager>();
 builder.Services.AddScoped<RestaurationManager>() ;
 builder.Services.AddScoped<HotelManager>();
+
+builder.Services.AddHttpClient<ApiService>();
+
+builder.Services.AddScoped<ChatbotController>();
 
 var app = builder.Build();
 

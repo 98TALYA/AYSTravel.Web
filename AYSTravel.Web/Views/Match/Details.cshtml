@@ -1,72 +1,320 @@
-﻿@using AYSTravel.Data.Entities
+﻿@model AYSTravel.Web.ViewModels.MatchViewModel
+@{
+    ViewData["Title"] = $"{Model.Equipe1} vs {Model.Equipe2}";
+ 
+    var flagCodes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+    {
+        { "Maroc",        "MA" }, { "Espagne",      "ES" },
+        { "France",       "FR" }, { "Portugal",     "PT" },
+        { "Brésil",       "BR" }, { "Argentine",    "AR" },
+        { "Allemagne",    "DE" }, { "Italie",       "IT" },
+        { "Angleterre",   "GB" }, { "Belgique",     "BE" },
+        { "Pays-Bas",     "NL" }, { "Croatie",      "HR" },
+        { "Sénégal",      "SN" }, { "Cameroun",     "CM" },
+        { "États-Unis",   "US" }, { "Mexique",      "MX" },
+        { "Japon",        "JP" }, { "Corée du Sud", "KR" },
+        { "USA",          "US" }, { "Australie",    "AU" },
+        { "Suisse",       "CH" }, { "Suède",        "SE" },
+        { "Danemark",     "DK" }, { "Pologne",      "PL" },
+        { "Serbie",       "RS" }, { "Ukraine",      "UA" },
+        { "Turquie",      "TR" }, { "Colombie",     "CO" },
+        { "Uruguay",      "UY" }, { "Chili",        "CL" },
+        { "Équateur",     "EC" }, { "Qatar",        "QA" },
+        { "Ghana",        "GH" }, { "Nigeria",      "NG" },
+        { "Algérie",      "DZ" }, { "Égypte",       "EG" },
+        { "Tunisie",      "TN" },  
+    };
 
-@model AYSTravel.Web.ViewModels.MatchViewModel
+    string flag1 = flagCodes.TryGetValue(Model.Equipe1, out var c1) ? c1 : Model.Equipe1.Substring(0, 2).ToUpper();
+    string flag2 = flagCodes.TryGetValue(Model.Equipe2, out var c2) ? c2 : Model.Equipe2.Substring(0, 2).ToUpper();
+}
+
 
 <div class="container py-5">
 
-    <div class="card shadow-lg p-5 match-card text-center">
+    <!-- ===== HEADER MATCH ===== -->
+    <div class="match-details-hero mb-5">
 
-       <img src="~/image/stades/@Model.StadeImageUrl"
-            class="card-img-top mb-4"
-             style="height:300px;object-fit:cover;" />
-
-        <h2 class="text-warning fw-bold mb-3">
-            <img src="https://flagsapi.com/@Model.Equipe1.Substring(0, 2).ToUpper()/flat/32.png"
-                 class="flag-img me-2" />
-                                               VS
-
-            <img src="https://flagsapi.com/@Model.Equipe2.Substring(0, 2).ToUpper()/flat/32.png"
-                 class="flag-img ms-2" />
-        </h2>
-
-        <div id="detailCountdown"
-             data-date="@Model.Date.ToString("yyyy-MM-ddTHH:mm:ss")"
-             class="countdown mb-4">
+        <div class="match-stade-bg"
+             style="background-image: url('/image/stades/@Model.StadeImageUrl');">
+            <div class="match-stade-overlay"></div>
         </div>
-        
-        <p>🏟 Stade : @Model.StadeNom</p>
-            
-      
-        <p>🏙 Ville : @Model.VilleNom</p>
-        <p>📅 @Model.Date.ToString("dd MMMM yyyy")</p>
-       
 
-        <a href="https://www.fifa.com/tickets" class="btn btn-gold rounded-pill mt-4">
-            🎟 Réserver Maintenant
-        </a>
-        <a asp-action="Index"
-           class="btn btn-outline-light rounded-pill mt-4">
-            Retour
-        </a>
+        <div class="match-details-content">
 
+            @if (!string.IsNullOrEmpty(Model.Round))
+            {
+                <div class="match-round-badge">🏆 @Model.Round</div>
+            }
+
+            <!-- ÉQUIPES + SCORE -->
+            <div class="match-teams-row">
+
+                <!-- ÉQUIPE 1 -->
+                <div class="match-team-block">
+                    @if (!string.IsNullOrEmpty(Model.LogoEquipe1))
+                    {
+                        <img src="@Model.LogoEquipe1" class="team-logo-lg" alt="@Model.Equipe1" />
+                    }
+                    else
+                    {
+                        <img src="https://flagsapi.com/@flag1/flat/64.png" class="team-flag-lg" alt="@Model.Equipe1" />
+                    }
+                    <span class="team-name-lg">@Model.Equipe1</span>
+                </div>
+
+                <!-- SCORE / VS -->
+                <div class="match-score-block">
+                    @if (Model.EstLive)
+                    {
+                        <div class="live-badge-lg">🔴 LIVE @Model.MinuteJouee'</div>
+                        <div class="score-lg">@(Model.ScoreEquipe1 ?? 0) - @(Model.ScoreEquipe2 ?? 0)</div>
+                    }
+                    else if (Model.EstTermine)
+                    {
+                        <div class="score-lg">@(Model.ScoreEquipe1 ?? 0) - @(Model.ScoreEquipe2 ?? 0)</div>
+                        <div class="match-status-badge">Terminé</div>
+                    }
+                    else
+                    {
+                        <div class="vs-lg">VS</div>
+                        <div id="detailCountdown"
+                             data-date="@Model.Date.ToString("yyyy-MM-ddTHH:mm:ss")"
+                             class="countdown-lg">
+                        </div>
+                    }
+                </div>
+
+                <!-- ÉQUIPE 2 -->
+                <div class="match-team-block">
+                    @if (!string.IsNullOrEmpty(Model.LogoEquipe2))
+                    {
+                        <img src="@Model.LogoEquipe2" class="team-logo-lg" alt="@Model.Equipe2" />
+                    }
+                    else
+                    {
+                        <img src="https://flagsapi.com/@flag2/flat/64.png" class="team-flag-lg" alt="@Model.Equipe2" />
+                    }
+                    <span class="team-name-lg">@Model.Equipe2</span>
+                </div>
+
+            </div>
+
+            <!-- INFOS MATCH -->
+            <div class="match-meta-row">
+                <span>🏟 @Model.StadeNom</span>
+                <span>🏙 @Model.VilleNom</span>
+                <span>📅 @Model.Date.ToString("dd MMMM yyyy · HH:mm")</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== INFOS ÉQUIPES API ===== -->
+    @if (ViewBag.TeamInfo1 != null && ViewBag.TeamInfo2 != null)
+    {
+        <div class="row g-4 mb-5">
+            <div class="col-md-6">
+                <div class="team-info-card">
+                    <div class="team-info-header">
+                        <img src="@ViewBag.TeamInfo1.Logo" alt="@ViewBag.TeamInfo1.Nom" />
+                        <div>
+                            <h5>@ViewBag.TeamInfo1.Nom</h5>
+                            <p>🌍 @ViewBag.TeamInfo1.Pays</p>
+                        </div>
+                    </div>
+                    <div class="team-info-details">
+                        <div class="team-info-item">
+                            <span>🏟 Stade</span>
+                            <strong>@ViewBag.TeamInfo1.Stade</strong>
+                        </div>
+                        <div class="team-info-item">
+                            <span>📍 Ville</span>
+                            <strong>@ViewBag.TeamInfo1.Ville</strong>
+                        </div>
+                        <div class="team-info-item">
+                            <span>👥 Capacité</span>
+                            <strong>@ViewBag.TeamInfo1.Capacite.ToString("N0")</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="team-info-card">
+                    <div class="team-info-header">
+                        <img src="@ViewBag.TeamInfo2.Logo" alt="@ViewBag.TeamInfo2.Nom" />
+                        <div>
+                            <h5>@ViewBag.TeamInfo2.Nom</h5>
+                            <p>🌍 @ViewBag.TeamInfo2.Pays</p>
+                        </div>
+                    </div>
+                    <div class="team-info-details">
+                        <div class="team-info-item">
+                            <span>🏟 Stade</span>
+                            <strong>@ViewBag.TeamInfo2.Stade</strong>
+                        </div>
+                        <div class="team-info-item">
+                            <span>📍 Ville</span>
+                            <strong>@ViewBag.TeamInfo2.Ville</strong>
+                        </div>
+                        <div class="team-info-item">
+                            <span>👥 Capacité</span>
+                            <strong>@ViewBag.TeamInfo2.Capacite.ToString("N0")</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- ===== FACE À FACE ===== -->
+    @if (ViewBag.HeadToHead != null)
+    {
+        <div class="h2h-card mb-5">
+            <h4 class="section-heading">⚔️ Face à Face</h4>
+
+            <div class="h2h-stats-row">
+                <div class="h2h-stat">
+                    <span class="h2h-stat-value text-warning">@ViewBag.HeadToHead.Victoires1</span>
+                    <span class="h2h-stat-label">Victoires @Model.Equipe1</span>
+                </div>
+                <div class="h2h-stat">
+                    <span class="h2h-stat-value">@ViewBag.HeadToHead.Nuls</span>
+                    <span class="h2h-stat-label">Nuls</span>
+                </div>
+                <div class="h2h-stat">
+                    <span class="h2h-stat-value text-warning">@ViewBag.HeadToHead.Victoires2</span>
+                    <span class="h2h-stat-label">Victoires @Model.Equipe2</span>
+                </div>
+            </div>
+
+            @{
+                int total = ViewBag.HeadToHead.Victoires1 + ViewBag.HeadToHead.Victoires2 + ViewBag.HeadToHead.Nuls;
+                int pct1 = total > 0 ? (int)((double)ViewBag.HeadToHead.Victoires1 / total * 100) : 33;
+                int pctN = total > 0 ? (int)((double)ViewBag.HeadToHead.Nuls / total * 100) : 34;
+                int pct2 = 100 - pct1 - pctN;
+            }
+            <div class="h2h-bar">
+                <div class="h2h-bar-fill h2h-bar-1" style="width: @pct1%">@pct1%</div>
+                <div class="h2h-bar-fill h2h-bar-n" style="width: @pctN%">@pctN%</div>
+                <div class="h2h-bar-fill h2h-bar-2" style="width: @pct2%">@pct2%</div>
+            </div>
+
+            @if (ViewBag.HeadToHead.Matchs?.Count > 0)
+            {
+                <h5 class="mt-4 mb-3" style="color:#a8d8ea;">Derniers matchs</h5>
+                @foreach (var m in ViewBag.HeadToHead.Matchs)
+                {
+                    <div class="h2h-match-row">
+                        <span class="h2h-date">@DateTime.Parse(m.Date).ToString("dd/MM/yyyy")</span>
+                        <div class="h2h-teams">
+                            <img src="@m.Logo1" alt="@m.Equipe1" />
+                            <span>@m.Equipe1</span>
+                            <strong class="h2h-score">@m.Score</strong>
+                            <span>@m.Equipe2</span>
+                            <img src="@m.Logo2" alt="@m.Equipe2" />
+                        </div>
+                        <span class="h2h-competition">@m.Competion</span>
+                    </div>
+                }
+            }
+        </div>
+    }
+
+    <!-- ===== STATS ÉQUIPES ===== -->
+    @if (ViewBag.StatsEquipe1 != null && ViewBag.StatsEquipe2 != null)
+    {
+        <div class="stats-card mb-5">
+            <h4 class="section-heading">📊 Statistiques</h4>
+
+            <div class="stats-compare-row">
+                <div class="stats-label">Matchs joués</div>
+                <div class="stats-bar-wrap">
+                    <span class="stats-val-left">@ViewBag.StatsEquipe1.MatchsJoues</span>
+                    <span class="stats-val-right">@ViewBag.StatsEquipe2.MatchsJoues</span>
+                </div>
+            </div>
+            <div class="stats-compare-row">
+                <div class="stats-label">Victoires</div>
+                <div class="stats-bar-wrap">
+                    <span class="stats-val-left text-warning">@ViewBag.StatsEquipe1.Victoires</span>
+                    <span class="stats-val-right text-warning">@ViewBag.StatsEquipe2.Victoires</span>
+                </div>
+            </div>
+            <div class="stats-compare-row">
+                <div class="stats-label">Nuls</div>
+                <div class="stats-bar-wrap">
+                    <span class="stats-val-left">@ViewBag.StatsEquipe1.Nuls</span>
+                    <span class="stats-val-right">@ViewBag.StatsEquipe2.Nuls</span>
+                </div>
+            </div>
+            <div class="stats-compare-row">
+                <div class="stats-label">Défaites</div>
+                <div class="stats-bar-wrap">
+                    <span class="stats-val-left text-danger">@ViewBag.StatsEquipe1.Defaites</span>
+                    <span class="stats-val-right text-danger">@ViewBag.StatsEquipe2.Defaites</span>
+                </div>
+            </div>
+            <div class="stats-compare-row">
+                <div class="stats-label">Buts marqués</div>
+                <div class="stats-bar-wrap">
+                    <span class="stats-val-left">@ViewBag.StatsEquipe1.ButsMarques</span>
+                    <span class="stats-val-right">@ViewBag.StatsEquipe2.ButsMarques</span>
+                </div>
+            </div>
+            <div class="stats-compare-row">
+                <div class="stats-label">Buts encaissés</div>
+                <div class="stats-bar-wrap">
+                    <span class="stats-val-left text-danger">@ViewBag.StatsEquipe1.ButsEncaisses</span>
+                    <span class="stats-val-right text-danger">@ViewBag.StatsEquipe2.ButsEncaisses</span>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- ===== BOUTONS ===== -->
+    <div class="text-center mt-4">
+        <a href="https://www.fifa.com/tickets"
+           target="_blank"
+           class="btn btn-warning rounded-pill px-5 me-3 fw-bold">
+            🎟 Réserver un billet
+        </a>
+        <a asp-action="Index" class="btn btn-outline-light rounded-pill px-5">
+            ← Retour
+        </a>
     </div>
 
 </div>
 
 @section Scripts {
     <script>
-        let el = document.getElementById("detailCountdown");
+        const el = document.getElementById("detailCountdown");
+        if (el) {
+            function updateCountdown() {
+                const matchDate = new Date(el.dataset.date);
+                const now       = new Date();
+                const diff      = matchDate - now;
 
-        function updateDetailCountdown() {
+                if (diff <= 0) {
+                    el.innerHTML = '<span class="text-danger fw-bold">🔴 Match en cours !</span>';
+                    return;
+                }
 
-            let matchDate = new Date(el.dataset.date);
-            let now = new Date();
-            let diff = matchDate - now;
+                const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs  = Math.floor((diff % (1000 * 60)) / 1000);
 
-            if (diff <= 0) {
-                el.innerHTML = "🔴 Match en cours";
-                return;
+                el.innerHTML = `
+                    <div class="countdown-boxes">
+                        <div class="cd-box"><span>${String(days).padStart(2,'0')}</span><small>Jours</small></div>
+                        <div class="cd-box"><span>${String(hours).padStart(2,'0')}</span><small>Heures</small></div>
+                        <div class="cd-box"><span>${String(mins).padStart(2,'0')}</span><small>Min</small></div>
+                        <div class="cd-box"><span>${String(secs).padStart(2,'0')}</span><small>Sec</small></div>
+                    </div>`;
             }
-
-            let days = Math.floor(diff/(1000*60*60*24));
-            let hours = Math.floor((diff/(1000*60*60))%24);
-            let minutes = Math.floor((diff/(1000*60))%60);
-            let seconds = Math.floor((diff/1000)%60);
-
-            el.innerHTML = `⏳ ${days}j ${hours}h ${minutes}m ${seconds}s`;
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
         }
-
-        setInterval(updateDetailCountdown,1000);
-        updateDetailCountdown();
     </script>
 }

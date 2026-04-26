@@ -1,13 +1,11 @@
-﻿@using AYSTravel.Data.Entities
-@model IEnumerable<AYSTravel.Web.ViewModels.MatchViewModel>
-
+﻿@model IEnumerable<AYSTravel.Web.ViewModels.MatchViewModel>
 @{
     ViewData["Title"] = "Matchs";
 }
 
 <section class="match-hero d-flex align-items-center justify-content-center text-center">
     <div>
-        <h1 class="display-3 fw-bold text-white ">World Cup 2030</h1>
+        <h1 class="display-3 fw-bold text-white">World Cup 2030</h1>
         <p class="lead text-light">Matchs Officiels</p>
     </div>
 </section>
@@ -26,50 +24,68 @@
     </div>
 
     <div class="row g-4" id="matchContainer">
-
         @foreach (var match in Model)
         {
-            <div class="col-md-6 col-lg-4 match-item"
-                 data-ville="@match.VilleNom">
-
+            <div class="col-md-6 col-lg-4 match-item" data-ville="@match.VilleNom">
                 <div class="card match-card h-100 border-0 shadow-lg">
 
                     <!-- IMAGE STADE -->
                     <img src="@Url.Content("~/image/stades/" + match.StadeImageUrl)"
                          class="card-img-top"
-                         style="height:200px;object-fit:cover;" />
+                         style="height:200px; object-fit:cover;"
+                         alt="@match.StadeNom" />
 
                     <div class="card-body text-center p-4">
 
-                        <!-- FLAGS AUTO (basé sur nom équipe) -->
+                        <!-- ÉQUIPES + DRAPEAUX -->
+                        @{
+                            var flagCodes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+                                        {
+                                        { "Maroc",        "MA" }, { "Espagne",      "ES" },
+                                        { "France",       "FR" }, { "Portugal",     "PT" },
+                                        { "Brésil",       "BR" }, { "Argentine",    "AR" },
+                                        { "Allemagne",    "DE" }, { "Italie",       "IT" },
+                                        { "Angleterre",   "GB" }, { "Belgique",     "BE" },
+                                        { "Pays-Bas",     "NL" }, { "Croatie",      "HR" },
+                                        { "Sénégal",      "SN" }, { "Cameroun",     "CM" },
+                                        { "États-Unis",   "US" }, { "Mexique",      "MX" },
+                                        { "Japon",        "JP" }, { "Corée du Sud", "KR" },
+                                        { "USA",          "US" }, { "Australie",    "AU" },
+                                        { "Suisse",       "CH" }, { "Danemark",     "DK" },
+                                        { "Pologne",      "PL" }, { "Serbie",       "RS" },
+                                        { "Ukraine",      "UA" }, { "Turquie",      "TR" },
+                                        { "Colombie",     "CO" }, { "Uruguay",      "UY" },
+                                        { "Chili",        "CL" }, { "Équateur",     "EC" },
+                                        { "Qatar",        "QA" }, { "Ghana",        "GH" },
+                                        { "Nigeria",      "NG" }, { "Algérie",      "DZ" },
+                                        { "Égypte",       "EG" }, { "Tunisie",      "TN" },
+                                        };
+
+                            string flag1 = flagCodes.TryGetValue(match.Equipe1, out var c1) ? c1 : match.Equipe1.Substring(0, 2).ToUpper();
+                            string flag2 = flagCodes.TryGetValue(match.Equipe2, out var c2) ? c2 : match.Equipe2.Substring(0, 2).ToUpper();
+                        }
+
+                        <!-- ÉQUIPES + DRAPEAUX -->
                         <div class="d-flex justify-content-center align-items-center mb-3">
-
-                            <img src="https://flagsapi.com/@match.Equipe1.Substring(0, 2).ToUpper()/flat/32.png"
-                                 class="flag-img me-2" />
-
-                            <strong class="text-warning">
-                                @match.Equipe1
-                            </strong>
-
-                            <span class="mx-2 text-white">VS</span>
-
-                            <strong class="text-warning">
-                                @match.Equipe2
-                            </strong>
-
-                            <img src="https://flagsapi.com/@match.Equipe2.Substring(0, 2).ToUpper()/flat/32.png"
-                                 class="flag-img ms-2" />
-
+                            <img src="https://flagsapi.com/@flag1/flat/32.png" class="flag-img me-2">
+                            <strong class="text-warning">@match.Equipe1</strong>
+                            <span class="mx-2 text-white fw-bold">VS</span>
+                            <strong class="text-warning">@match.Equipe2</strong>
+                            <img src="https://flagsapi.com/@flag2/flat/32.png" class="flag-img ms-2">
                         </div>
 
                         <!-- COUNTDOWN -->
                         <div class="countdown mb-3"
                              data-date="@match.Date.ToString("yyyy-MM-ddTHH:mm:ss")">
+                            <span class="cd-days">00</span>j
+                            <span class="cd-hours">00</span>h
+                            <span class="cd-mins">00</span>m
+                            <span class="cd-secs">00</span>s
                         </div>
 
-                        <p>🏟 @match.Stade</p>
-                        <p>🏙 @match.VilleNom</p>
-                        <p>📅 @match.Date.ToString("dd MMMM yyyy")</p>
+                        <p class="mb-1">🏟 @match.StadeNom</p>
+                        <p class="mb-1">🏙 @match.VilleNom</p>
+                        <p class="mb-1">📅 @match.Date.ToString("dd MMMM yyyy")</p>
 
                         <a asp-action="Details"
                            asp-route-id="@match.Id"
@@ -81,24 +97,46 @@
                 </div>
             </div>
         }
-
     </div>
 </div>
+
 @section Script {
     <script>
-        document.getElementById("villeFilter").addEventListener("change", function() {
-            let filter = this.value.toLowerCase();
-            let matchItems = document.querySelectorAll("#matchContainer .match-item");
-
-            matchItems.forEach(function(item) {
-                let ville = item.getAttribute("data-ville").toLowerCase();
-
-                if (filter === "" || ville === filter) {
-                    item.style.display = "block";
-                } else {
-                    item.style.display = "none";
-                }
+        // ===== FILTRE PAR VILLE =====
+        document.getElementById("villeFilter").addEventListener("change", function () {
+            const filter = this.value.toLowerCase();
+            document.querySelectorAll("#matchContainer .match-item").forEach(function (item) {
+                const ville = item.getAttribute("data-ville").toLowerCase();
+                item.style.display = (filter === "" || ville === filter) ? "block" : "none";
             });
+        });
+
+        // ===== COUNTDOWN =====
+        document.querySelectorAll('.countdown').forEach(function (el) {
+            const matchDate = new Date(el.dataset.date);
+
+            function update() {
+                const now  = new Date();
+                const diff = matchDate - now;
+
+                if (diff <= 0) {
+                    el.innerHTML = '<span class="text-danger fw-bold">🔴 En cours / Terminé</span>';
+                    return;
+                }
+
+                const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+                el.querySelector('.cd-days').textContent  = String(days).padStart(2, '0');
+                el.querySelector('.cd-hours').textContent = String(hours).padStart(2, '0');
+                el.querySelector('.cd-mins').textContent  = String(mins).padStart(2, '0');
+                el.querySelector('.cd-secs').textContent  = String(secs).padStart(2, '0');
+            }
+
+            update();
+            setInterval(update, 1000);
         });
     </script>
 }
